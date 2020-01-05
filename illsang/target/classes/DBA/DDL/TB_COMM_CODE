@@ -1,0 +1,47 @@
+------------------------------------------------------------------------
+-- DDL for Table TB_COMM_CODE
+------------------------------------------------------------------------
+DROP TABLE TB_COMM_CODE;
+CREATE TABLE TB_COMM_CODE
+(
+	COMP_CD			CHAR(2) 	NOT NULL
+,	WRK_MDUL_CD		VARCHAR(2)
+,	COMM_CTG_CD		VARCHAR(5)
+,	COMM_CTG_NM		VARCHAR(50)
+,	COMM_PROP_NM_01 VARCHAR(50)
+,	COMM_PROP_NM_02 VARCHAR(50)
+,	COMM_PROP_NM_03 VARCHAR(50)
+,	COMM_PROP_NM_04 VARCHAR(50)
+,	COMM_PROP_NM_05 VARCHAR(50)
+,	COMM_PROP_NM_06 VARCHAR(50)
+,	COMM_PROP_NM_07 VARCHAR(50)
+,	COMM_PROP_NM_08 VARCHAR(50)
+,	COMM_PROP_NM_09 VARCHAR(50)
+,	COMM_PROP_NM_10 VARCHAR(50)
+,	USE_YN			CHAR(1)
+,	USE_MNGE_YN		CHAR(1)
+,	COMM_CD_DNUM	INT
+,	SORT_NO			INT		
+,	RMK				VARCHAR(100)
+,	FIRS_REGR_ID	VARCHAR(10)
+,	FIRS_REG_DTM	DATETIME	DEFAULT CURRENT_TIMESTAMP
+,	FINA_REGR_ID	VARCHAR(10)
+,	FINA_REG_DTM	DATETIME	DEFAULT CURRENT_TIMESTAMP
+);
+ALTER TABLE `user` CHANGE `id` `id` INT( 11 ) COMMENT 'user 테이블의 id';
+ALTER TABLE `user` CHANGE `id` `id` INT( 11 ) COMMENT 'user 테이블의 id';
+ALTER TABLE `user` CHANGE `id` `id` INT( 11 ) COMMENT 'user 테이블의 id';
+ALTER TABLE `user` CHANGE `id` `id` INT( 11 ) COMMENT 'user 테이블의 id';
+ALTER TABLE `user` CHANGE `id` `id` INT( 11 ) COMMENT 'user 테이블의 id';
+ALTER TABLE `user` CHANGE `id` `id` INT( 11 ) COMMENT 'user 테이블의 id';
+ALTER TABLE `user` CHANGE `id` `id` INT( 11 ) COMMENT 'user 테이블의 id';
+ALTER TABLE `user` CHANGE `id` `id` INT( 11 ) COMMENT 'user 테이블의 id';
+ALTER TABLE `user` CHANGE `id` `id` INT( 11 ) COMMENT 'user 테이블의 id';
+ALTER TABLE `user` CHANGE `id` `id` INT( 11 ) COMMENT 'user 테이블의 id';
+ALTER TABLE `user` CHANGE `id` `id` INT( 11 ) COMMENT 'user 테이블의 id';
+ALTER TABLE `user` CHANGE `id` `id` INT( 11 ) COMMENT 'user 테이블의 id';
+ALTER TABLE `user` CHANGE `id` `id` INT( 11 ) COMMENT 'user 테이블의 id';
+ALTER TABLE `user` CHANGE `id` `id` INT( 11 ) COMMENT 'user 테이블의 id';
+ALTER TABLE `user` CHANGE `id` `id` INT( 11 ) COMMENT 'user 테이블의 id';
+ALTER TABLE `user` CHANGE `id` `id` INT( 11 ) COMMENT 'user 테이블의 id';
+ALTER TABLE `user` CHANGE `id` `id` INT( 11 ) COMMENT 'user 테이블의 id';

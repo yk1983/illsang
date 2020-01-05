@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+	<!-- MySQL 설정 
+	<bean id="dataSourceMySql"
+		class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName"
+			value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://IP주소/스키마" />
+		<property name="username" value="user_id" />
+		<property name="password" value="user_pwd" />
+	</bean>
+	-->
+
+	<!-- Oracle 설정 
+	<bean id="dataSourceOracle"
+		class="org.apache.commons.dbcp2.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName"
+			value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url"
+			value="jdbc:oracle:thin:@localhost:1521:xe" />
+		<property name="username" value="user_id" />
+		<property name="password" value="user_pwd" />
+	</bean>
+	-->
+	
+	<!-- Maria 설정 (local)
+	<bean id="dataSourceMaria"
+		class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+		<property name="driverClass" value="org.mariadb.jdbc.Driver" />
+		<property name="url"
+			value="jdbc:mariadb://localhost:3306/cafeillsang" />
+		<property name="username" value="root" />
+		<property name="password" value="illsang1234" />
+	</bean> -->
+	
+	<!-- Maria 설정 (운영) -->
+	<bean id="dataSourceMaria"
+		class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+		<property name="driverClass" value="org.mariadb.jdbc.Driver" />
+		<property name="url"
+			value="jdbc:mariadb://localhost:3306/cafeillsang" />
+		<property name="username" value="cafeillsang" />
+		<property name="password" value="iLLSang!@" />
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+
+	<aop:config proxy-target-class="true">
+		<aop:pointcut
+			expression="execution(* illsang..controller.*Controller.*(..)) or execution(* illsang..service.*Impl.*(..)) or execution(* illsang..dao.*DAO.*(..))"
+			id="serviceOperation" />
+		<aop:advisor id="transactionAdvisor"
+			advice-ref="txAdvisor" pointcut-ref="serviceOperation" />
+	</aop:config>
+
+	<tx:advice id="txAdvisor"
+		transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="update*" rollback-for="Exeption" />
+			<tx:method name="delete*" rollback-for="Exeption" />
+			<tx:method name="insert*" rollback-for="Exeption" />
+		</tx:attributes>
+	</tx:advice>
+
+	<bean id="dataSource"
+		class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
+		<constructor-arg ref="dataSourceMaria" />
+		<property name="logFormatter">
+			<bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
+				<property name="loggingType" value="MULTI_LINE" />
+				<property name="sqlPrefix" value="SQL         :  " />
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="sqlSession"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations"
+			value="classpath:mapper/**/*_Sql.xml" />
+	</bean>
+
+	<bean id="sqlSessionTemplate"
+		class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSession" />
+	</bean>
+</beans>
