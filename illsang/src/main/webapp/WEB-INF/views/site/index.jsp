@@ -11,33 +11,30 @@
 
 		<!-- Single Catagory -->
 		<div class="single-products-catagory clearfix">
-			<a href="/shop"> <img src="/img/bg-img/1.jpg" alt=""> <!-- Hover Content -->
+			<a href="/magazine"> <img src="/img/bg-img/bg1.jpg" alt=""> <!-- Hover Content -->
 				<div class="hover-content">
 					<div class="line"></div>
-					<p>From $180</p>
-					<h4>Modern Chair</h4>
+					<h4>이달의 커피</h4>
 				</div>
 			</a>
 		</div>
 
 		<!-- Single Catagory -->
 		<div class="single-products-catagory clearfix">
-			<a href="shop.html"> <img src="/img/bg-img/2.jpg" alt=""> <!-- Hover Content -->
+			<a href="/menu"> <img src="/img/bg-img/bg2.jpg" alt=""> <!-- Hover Content -->
 				<div class="hover-content">
-					<div class="line"></div>
-					<p>From $180</p>
-					<h4>Minimalistic Plant Pot</h4>
+					<div class="line"></div>					
+					<h4>커피메뉴</h4>
 				</div>
 			</a>
 		</div>
 
 		<!-- Single Catagory -->
 		<div class="single-products-catagory clearfix">
-			<a href="shop.html"> <img src="/img/bg-img/3.jpg" alt=""> <!-- Hover Content -->
+			<a href="shop.html"> <img src="/img/bg-img/bg3.jpg" alt=""> <!-- Hover Content -->
 				<div class="hover-content">
-					<div class="line"></div>
-					<p>From $180</p>
-					<h4>Modern Chair</h4>
+					<div class="line"></div>					
+					<h4>클래스</h4>
 				</div>
 			</a>
 		</div>

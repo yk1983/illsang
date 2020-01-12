@@ -16,13 +16,16 @@
 		<!--  Catagories  -->
 		<div class="catagories-menu">
 			<ul>
-				<li class="active"><a href="#">Chairs</a></li>
-				<li><a href="#">Beds</a></li>
-				<li><a href="#">Accesories</a></li>
-				<li><a href="#">Furniture</a></li>
-				<li><a href="#">Home Deco</a></li>
-				<li><a href="#">Dressings</a></li>
-				<li><a href="#">Tables</a></li>
+				<li class="active"><a href="#">Hand Drip</a></li>
+				<li><a href="#">Espresso</a></li>
+				<li><a href="#">Veriety</a></li>
+				<li><a href="#">Tea</a></li>
+				<li><a href="#">Frappucino</a></li>
+				<li><a href="#">Ade</a></li>
+				<li><a href="#">Juice</a></li>
+				<li><a href="#">Smoothie</a></li>
+				<li><a href="#">Desert</a></li>
+				<li><a href="#">Others</a></li>
 			</ul>
 		</div>
 	</div>
@@ -111,7 +114,7 @@
 			<div class="col-12">
 				<div
 					class="product-topbar d-xl-flex align-items-end justify-content-between">
-					<!-- Total Products -->
+					Total Products
 					<div class="total-products">
 						<p>Showing 1-8 0f 25</p>
 						<div class="view d-flex">
@@ -119,7 +122,7 @@
 							<a href="#"><i class="fa fa-bars" aria-hidden="true"></i></a>
 						</div>
 					</div>
-					<!-- Sorting -->
+					Sorting
 					<div class="product-sorting d-flex">
 						<div class="sort-by-date d-flex align-items-center mr-15">
 							<p>Sort by</p>
@@ -150,13 +153,13 @@
 		<div class="row">
 
 			<!-- Single Product Area -->
-			<div class="col-12 col-sm-6 col-md-12 col-xl-6">
+			<div class="col-12 col-sm-4 col-md-12 col-xl-4">
 				<div class="single-product-wrapper">
 					<!-- Product Image -->
 					<div class="product-img">
-						<img src="img/product-img/product1.jpg" alt="">
+						<img src="img/product-img/product-kenya1.jpg" alt="">
 						<!-- Hover Thumb -->
-						<img class="hover-img" src="img/product-img/product2.jpg" alt="">
+						<img class="hover-img" src="img/product-img/product-kenya2.jpg" alt="">
 					</div>
 
 					<!-- Product Description -->
@@ -165,9 +168,9 @@
 						<!-- Product Meta Data -->
 						<div class="product-meta-data">
 							<div class="line"></div>
-							<p class="product-price">$180</p>
+							<p class="product-price">6.0/6.5</p>
 							<a href="product-details.html">
-								<h6>Modern Chair</h6>
+								<h6>케냐AA</h6>
 							</a>
 						</div>
 						<!-- Ratings & Cart -->
@@ -189,7 +192,7 @@
 			</div>
 
 			<!-- Single Product Area -->
-			<div class="col-12 col-sm-6 col-md-12 col-xl-6">
+			<div class="col-12 col-sm-4 col-md-12 col-xl-4">
 				<div class="single-product-wrapper">
 					<!-- Product Image -->
 					<div class="product-img">
@@ -228,7 +231,7 @@
 			</div>
 
 			<!-- Single Product Area -->
-			<div class="col-12 col-sm-6 col-md-12 col-xl-6">
+			<div class="col-12 col-sm-4 col-md-12 col-xl-4">
 				<div class="single-product-wrapper">
 					<!-- Product Image -->
 					<div class="product-img">
@@ -267,7 +270,7 @@
 			</div>
 
 			<!-- Single Product Area -->
-			<div class="col-12 col-sm-6 col-md-12 col-xl-6">
+			<div class="col-12 col-sm-4 col-md-12 col-xl-4">
 				<div class="single-product-wrapper">
 					<!-- Product Image -->
 					<div class="product-img">
@@ -306,7 +309,7 @@
 			</div>
 
 			<!-- Single Product Area -->
-			<div class="col-12 col-sm-6 col-md-12 col-xl-6">
+			<div class="col-12 col-sm-4 col-md-12 col-xl-4">
 				<div class="single-product-wrapper">
 					<!-- Product Image -->
 					<div class="product-img">
@@ -345,7 +348,7 @@
 			</div>
 
 			<!-- Single Product Area -->
-			<div class="col-12 col-sm-6 col-md-12 col-xl-6">
+			<div class="col-12 col-sm-4 col-md-12 col-xl-4">
 				<div class="single-product-wrapper">
 					<!-- Product Image -->
 					<div class="product-img">
