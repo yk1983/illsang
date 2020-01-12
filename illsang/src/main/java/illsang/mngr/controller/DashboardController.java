@@ -13,14 +13,8 @@ public class DashboardController {
 
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 	
-	/**
-	 * Dashboard 페이지를 호출
-	 * @param 
-	 * @return ModelAndView 
-	 * @throws
-	 */
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView getDashboard() {
+	public ModelAndView view() throws Exception {
 		ModelAndView mav = new ModelAndView("mngr/dashboard");
 		return mav;
 	}

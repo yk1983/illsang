@@ -62,27 +62,14 @@
 	</filter-mapping>
 
 	<error-page>
-		<exception-type>java.lang.Throwable</exception-type>
-		<location>/WEB-INF/views/eror/EXEC_COMM/COMM/error.jsp</location>
-	</error-page>
-	<error-page>
-		<error-code>400</error-code>
-		<location>/WEB-INF/views/eror/EXEC_COMM/COMM/error.jsp</location>
+		<location>/error</location>
 	</error-page>
 	<error-page>
 		<error-code>404</error-code>
-		<location>/WEB-INF/views/eror/EXEC_COMM/COMM/blank.jsp</location>
+		<location>/error/no-resource</location>
 	</error-page>
 	<error-page>
 		<error-code>500</error-code>
-		<location>/WEB-INF/views/eror/EXEC_COMM/COMM/error.jsp</location>
-	</error-page>
-	<error-page>
-		<error-code>502</error-code>
-		<location>/WEB-INF/views/eror/EXEC_COMM/COMM/error.jsp</location>
-	</error-page>
-	<error-page>
-		<error-code>504</error-code>
-		<location>/WEB-INF/views/eror/EXEC_COMM/COMM/error.jsp</location>
+		<location>/error/server-error</location>
 	</error-page>
 </web-app>

@@ -20,7 +20,7 @@ public class StockController {
 	 * @throws
 	 */
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView getStockLst() {
+	public ModelAndView view() throws Exception {
 		ModelAndView mav = new ModelAndView("mngr/stck/stock");
 		return mav;
 	}

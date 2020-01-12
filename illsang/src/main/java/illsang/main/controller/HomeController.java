@@ -12,14 +12,8 @@ public class HomeController {
 	
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 
-	/**
-	 * index 페이지를 호출
-	 * @param
-	 * @return ModelAndView
-	 * @throws
-	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ModelAndView getIndex() {
+	public ModelAndView view() throws Exception {
 		ModelAndView mav = new ModelAndView("site/index");
 		return mav;
 	}

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="comm">
+
+	<select id="getCommonCodeHeaderList" parameterType="hashmap" resultType="hashmap">
+		SELECT ROW_NUMBER() OVER() 	AS row_no			/* row number */
+			 , COMM_CTG_CD			AS code
+		     , COMM_CTG_NM			AS name
+		     , RMK					AS remark
+		     , COMM_PROP_NM_01		AS attr_1
+		     , COMM_PROP_NM_02		AS attr_2
+		     , COMM_PROP_NM_03		AS attr_3
+		     , COMM_PROP_NM_04		AS attr_4
+		     , COMM_PROP_NM_05		AS attr_5
+		     , COMM_PROP_NM_06		AS attr_6
+		     , COMM_PROP_NM_07		AS attr_7
+		     , COMM_PROP_NM_08		AS attr_8
+		     , COMM_PROP_NM_09		AS attr_9
+		     , COMM_PROP_NM_10		AS attr_10
+		     , USE_YN				AS use_yn
+		     , 'A' 					AS etc
+		  FROM MAST001M
+      ORDER BY SORT_NO
+	</select>
+
+	<select id="getCommonCodeDetailList" parameterType="hashmap" resultType="hashmap">
+		SELECT ROW_NUMBER() OVER() 	AS row_no			/* row number */
+			 , COMM_CTG_CD			AS code
+		     , COMM_CTG_DTL_CD		AS dtl_code
+			 , COMM_CTG_DTL_NM		AS dtl_name
+			 , RMK					AS remark
+			 , COMM_PROP_CONT_01	AS val_1
+		     , COMM_PROP_CONT_02	AS val_2
+		     , COMM_PROP_CONT_03	AS val_3
+		     , COMM_PROP_CONT_04	AS val_4
+		     , COMM_PROP_CONT_05	AS val_5
+		     , COMM_PROP_CONT_06	AS val_6
+		     , COMM_PROP_CONT_07	AS val_7
+		     , COMM_PROP_CONT_08	AS val_8
+		     , COMM_PROP_CONT_09	AS val_9
+		     , COMM_PROP_CONT_10	AS val_10
+		     , USE_YN				AS use_yn
+		     , SORT_NO				AS sort_no
+		     , 'A' 					AS etc
+		  FROM MAST001D
+		 WHERE WRK_MDUL_CD = #{modul_code}
+		   AND COMM_CTG_CD = #{code}
+	  ORDER BY SORT_NO
+	</select>
+	
+</mapper>
