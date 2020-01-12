@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="prdc">
+
+	<select id="getGoodsList" parameterType="hashmap" resultType="hashmap">
+		SELECT ROW_NUMBER() OVER() 							  AS row_no			/* row number */
+			 , CO_CD										  AS company_code	/* 회사코드 */
+			 , FN_MS_COMM_CTG_DTL_NM('MS', 'MS002', CO_CD)    AS company_name	/* 회사 */
+			 , PRD_CD										  AS goods_code		/* 상품코드 */
+			 , PRD_NM										  AS goods_name		/* 상품 */
+			 , CNTR_CD										  AS country_code	/* 국가코드 */
+			 , FN_MS_COMM_CTG_DTL_NM('MS', 'MS001', CNTR_CD)  AS country_name	/* 국가 */
+			 , GRADE_CD										  AS grade_code		/* 등급코드 */
+			 , FN_MS_COMM_CTG_DTL_NM('MS', 'MS003', GRADE_CD) AS grade_name		/* 등급 */
+			 , PROC_CD										  AS process_code	/* 가공방식코드 */
+			 , FN_MS_COMM_CTG_DTL_NM('MS', 'MS004', PROC_CD)  AS process_name	/* 가공방식 */
+			 , TASTE_CD										  AS taste_code		/* 맛코드 */
+			 , FN_MS_COMM_CTG_DTL_NM('MS', 'MS005', TASTE_CD) AS taste_name		/* 맛 */
+			 , BASE_PRICE									  AS base_price		/* 기준가 */
+			 , USE_YN										  AS use_yn			/* 사용여부 */
+			 , FN_MS_COMM_CTG_DTL_NM('MS', 'MS006', USE_YN)   AS use_name		/* 사용여부 */
+			 , 'A'											  AS etc
+		  FROM MAST002M
+		<where>
+			<if test='MS002 != null and MS002 != ""'>
+		   AND CO_CD = #{MS002}
+		   	</if>
+			<if test='MS006 != null and MS006 != ""'>
+		   AND USE_YN = #{MS006}
+		   	</if>
+			<if test='MS001 != null and MS001 != ""'>
+		   AND CNTR_CD IN
+				<foreach collection="MS001" item="item" open="(" close=")" separator=",">
+					#{item}
+				</foreach>
+			</if>
+			<if test='MS003 != null and MS003 != ""'>
+		   AND GRADE_CD IN
+				<foreach collection="MS003" item="item" open="(" close=")" separator=",">
+					#{item}
+				</foreach>
+			</if>
+			<if test='MS004 != null and MS004 != ""'>
+    	   AND PROC_CD IN
+				<foreach collection="MS004" item="item" open="(" close=")" separator=",">
+					#{item}
+				</foreach>
+			</if>
+			<if test='MS005 != null and MS005 != ""'>
+   		   AND TASTE_CD IN
+				<foreach collection="MS005" item="item" open="(" close=")" separator=",">
+					#{item}
+				</foreach>
+			</if>
+		</where>
+		ORDER BY
+				SORT_NO
+	</select>
+	
+</mapper>
