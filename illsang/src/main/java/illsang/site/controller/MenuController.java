@@ -1,7 +1,5 @@
 package illsang.site.controller;
 
-import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import illsang.comn.service.ComnService;
+import illsang.common.service.CommonService;
 import illsang.site.service.MenuService;
 
 @RestController
@@ -20,7 +18,7 @@ public class MenuController {
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
-	private ComnService cmn;
+	private CommonService cmn;
 	
 	@Autowired
 	private MenuService service;
@@ -34,8 +32,8 @@ public class MenuController {
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView getMenuPage() throws Exception {
 		ModelAndView mav = new ModelAndView("site/menu/menu");
-		Map<String, Object> map = cmn.getCmnCd("MS", "MS007");		
-		mav.addObject("ds_cmn", map);		
+//		Map<String, Object> map = cmn.getCmnCd("MS", "MS007");		
+//		mav.addObject("ds_cmn", map);		
 		return mav;
 	}
 	
