@@ -21,6 +21,7 @@
 <!-- Core Style CSS -->
 <link rel="stylesheet" href="/css/core-style.css">
 <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/site/magazine.css">
 
 </head>
 
@@ -55,8 +56,9 @@
 		<div class="mobile-nav">
 			<!-- Navbar Brand -->
 			<div class="amado-navbar-brand">
-				<a href="/"><img src="/img/core-img/logo.png"
-					alt="cafeillsang logo"></a>
+				<!-- <a href="/"><img src="/img/core-img/logo.png"
+					alt="cafeillsang logo"></a> -->
+				<h1><a href="/">ILLSANG</a></h1>
 			</div>
 			<!-- Navbar Toggler -->
 			<div class="amado-navbar-toggler">
@@ -72,8 +74,9 @@
 			</div>
 			<!-- Logo -->
 			<div class="logo">
-				<a href="/"><img src="/img/core-img/logo.png"
-					alt="cafeillsang logo"></a>
+				<!-- <a href="/"><img src="/img/core-img/logo.png"
+					alt="cafeillsang logo"></a>-->
+				<a href="/">ILLSANG</a>
 			</div>
 			<!-- Amado Nav -->
 			<nav class="amado-nav">
