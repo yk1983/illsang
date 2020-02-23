@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
-import illsang.comm.dao.AbstractDAO;
+import illsang.common.dao.AbstractDAO;
 
 @Repository
 public class SamplePageDAO extends AbstractDAO {

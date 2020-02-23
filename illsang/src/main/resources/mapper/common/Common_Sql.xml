@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="common">
+
+	<insert id="insertMasterCode" parameterType="hashmap">
+		INSERT INTO MAST001M
+		(
+			WRK_MDUL_CD				/* #1  업무구분 */
+		, 	COMM_CTG_CD				/* #2  공통코드 */
+		, 	COMM_CTG_NM				/* #3  공통코드명칭 */
+		, 	COMM_PROP_NM_01			/* #4  속성명1 */
+		, 	COMM_PROP_NM_02			/* #5  속성명2 */
+		, 	COMM_PROP_NM_03			/* #6  속성명3 */
+		, 	COMM_PROP_NM_04			/* #7  속성명4 */
+		, 	COMM_PROP_NM_05			/* #8  속성명5 */
+		, 	COMM_PROP_NM_06			/* #9  속성명6 */
+		, 	COMM_PROP_NM_07			/* #10 속성명7 */
+		, 	COMM_PROP_NM_08			/* #11 속성명8 */
+		, 	COMM_PROP_NM_09			/* #12 속성명9 */
+		, 	COMM_PROP_NM_10			/* #13 속성명10 */
+		, 	USE_YN					/* #14 사용여부 */
+		, 	MNGR_USE_YN				/* #15 관리자여부 */
+		, 	COMM_CD_DNUM			/* #16 상세코드자릿수 */
+		, 	SORT_NO					/* #17 정렬순서 */
+		, 	FIRS_REGR_ID			/* #18 최초등록자 */
+		, 	FIRS_REG_DTM			/* #19 최초등록일 */
+		, 	FINA_REGR_ID			/* #20 최종등록자 */
+		, 	FINA_REG_DTM			/* #21 최종등록일 */
+		)
+		VALUES
+		(
+			#{ModuleCode}			/* #1  업무구분 */
+		,	#{MasterCode}			/* #2  공통코드 */
+		, 	#{MasterName}			/* #3  공통코드명칭 */
+		, 	#{Attr1}				/* #4  속성명1 */
+		, 	#{Attr2}				/* #5  속성명2 */
+		, 	#{Attr3}				/* #6  속성명3 */
+		, 	#{Attr4}				/* #7  속성명4 */
+		, 	#{Attr5}				/* #8  속성명5 */
+		, 	#{Attr6}				/* #9  속성명6 */
+		, 	#{Attr7}				/* #10 속성명7 */
+		, 	#{Attr8}				/* #11 속성명8 */
+		, 	#{Attr9}				/* #12 속성명9 */
+		, 	#{Attr10}				/* #13 속성명10 */
+		,	#{UseYn}				/* #14 사용여부 */
+		,	#{MngrUseYn}			/* #15 관리자여부 */
+		, 	#{Length}				/* #16 상세코드자릿수 */
+		, 	${SortNo}				/* #17 정렬순서 */
+		, 	#{gvUsrId}				/* #18 최초등록자 */
+		, 	current_timestamp()		/* #19 최초등록일 */
+		, 	#{gvUsrId}				/* #20 최종등록자 */
+		, 	current_timestamp()		/* #21 최종등록일 */
+		)
+	</insert>
+	
+	<update id="updateMasterCode" parameterType="hashmap">
+		UPDATE MAST001M
+		   SET COMM_CTG_NM 	   = #{MasterName}
+		     , COMM_PROP_NM_01 = #{Attr1}
+		     , COMM_PROP_NM_02 = #{Attr2}
+		     , COMM_PROP_NM_03 = #{Attr3}
+		     , COMM_PROP_NM_04 = #{Attr4}
+		     , COMM_PROP_NM_05 = #{Attr5}
+		     , COMM_PROP_NM_06 = #{Attr6}
+		     , COMM_PROP_NM_07 = #{Attr7}
+		     , COMM_PROP_NM_08 = #{Attr8}
+		     , COMM_PROP_NM_09 = #{Attr9}
+		     , COMM_PROP_NM_10 = #{Attr10}
+		     , USE_YN          = IFNULL(#{UseYn}, 'Y')
+		     , MNGR_USE_YN     = IFNULL(#{MngrUseYn}, 'Y')
+		     , SORT_NO         = #{SortNo}
+		     , FINA_REGR_ID    = #{gvUsrId}
+		     , FINA_REG_DTM    = current_timestamp()
+		 WHERE WRK_MDUL_CD     = #{ModuleCode}
+		   AND COMM_CTG_CD     = #{MasterCode}
+	</update>
+
+	<select id="getCommonCodeList" parameterType="hashmap" resultType="hashmap">
+		SELECT /* [Common_Sql] common.getCommonCodeList */
+		       @num := @num + 1 		AS RecordID			/* row number */
+		     , A.WRK_MDUL_CD			AS ModuleCode		/* 모듈코드 */
+			 , A.COMM_CTG_CD			AS MasterCode		/* 공통코드 */
+		     , A.COMM_CTG_NM			AS MasterName		/* 공통코드 명 */
+		     , A.RMK					AS Remark			/* 비고 */
+		     , A.USE_YN					AS UseYn			/* 사용여부 */
+		     , A.MNGR_USE_YN			AS MngrUseYn		/* 관리여부 */
+		     , A.SORT_NO				AS SortNo			/* 정렬순서 */
+		     , A.COMM_PROP_NM_01		AS Attr1			/* 속성명1 */
+		     , A.COMM_PROP_NM_02		AS Attr2			/* 속성명2 */
+		     , A.COMM_PROP_NM_03		AS Attr3			/* 속성명3 */
+		     , A.COMM_PROP_NM_04		AS Attr4			/* 속성명4 */
+		     , A.COMM_PROP_NM_05		AS Attr5			/* 속성명5 */
+		     , A.COMM_PROP_NM_06		AS Attr6			/* 속성명6 */
+		     , A.COMM_PROP_NM_07		AS Attr7			/* 속성명7 */
+		     , A.COMM_PROP_NM_08		AS Attr8			/* 속성명8 */
+		     , A.COMM_PROP_NM_09		AS Attr9			/* 속성명9 */
+		     , A.COMM_PROP_NM_10		AS Attr10			/* 속성명10 */
+		     , NULL						AS Actions
+		  FROM (SELECT @num := 0
+		             , A.*
+		          FROM MAST001M A
+		      ORDER BY A.WRK_MDUL_CD
+		             , A.SORT_NO
+		             , A.COMM_CTG_CD) A
+	</select>
+
+	<insert id="insertDetailCode" parameterType="hashmap">
+		INSERT INTO MAST001D
+		(
+			WRK_MDUL_CD					/* #1  업무코드 */
+		,	COMM_CTG_CD					/* #2  공통코드 */
+		,	COMM_CTG_DTL_CD				/* #3  공통상세코드 */
+		,	COMM_CTG_DTL_NM				/* #4  공통상세코드명칭 */
+		,	COMM_PROP_CONT_01			/* #5  속성값1 */
+		,	COMM_PROP_CONT_02			/* #6  속성값2 */
+		,	COMM_PROP_CONT_03			/* #7  속성값3 */
+		,	COMM_PROP_CONT_04			/* #8  속성값4 */
+		,	COMM_PROP_CONT_05			/* #9  속성값5 */
+		,	COMM_PROP_CONT_06			/* #10 속성값6 */
+		,	COMM_PROP_CONT_07			/* #11 속성값7 */
+		,	COMM_PROP_CONT_08			/* #12 속성값8 */
+		,	COMM_PROP_CONT_09			/* #13 속성값9 */
+		,	COMM_PROP_CONT_10			/* #14 속성값10 */
+		,	USE_YN						/* #15 사용여부 */
+		,	SORT_NO						/* #16 정렬순서 */
+		,	FIRS_REGR_ID				/* #17 최초등록자 */
+		,	FIRS_REG_DTM				/* #18 최초등록일 */
+		,	FINA_REGR_ID				/* #19 최종등록자 */
+		,	FINA_REG_DTM				/* #20 최종등록일 */
+		)
+		VALUES
+		(
+			#{ModuleCode}				/* #1  업무코드 */
+		,	#{MasterCode}				/* #2  공통코드 */
+		,	#{DetailCode}				/* #3  공통상세코드 */
+		,	#{DetailName}				/* #4  공통상세코드명칭 */
+		,	#{Val1}						/* #5  속성값1 */
+		,	#{Val2}						/* #6  속성값2 */
+		,	#{Val3}						/* #7  속성값3 */
+		,	#{Val4}						/* #8  속성값4 */
+		,	#{Val5}						/* #9  속성값5 */
+		,	#{Val6}						/* #10 속성값6 */
+		,	#{Val7}						/* #11 속성값7 */
+		,	#{Val8}						/* #12 속성값8 */
+		,	#{Val9}						/* #13 속성값9 */
+		,	#{Val10}					/* #14 속성값10 */
+		,	#{UseYn}					/* #15 사용여부 */
+		,	#{SortNo}					/* #16 정렬순서 */
+		, 	#{gvUsrId}					/* #17 최초등록자 */
+		, 	current_timestamp()			/* #18 최초등록일 */
+		, 	#{gvUsrId}					/* #19 최종등록자 */
+		, 	current_timestamp()			/* #20 최종등록일 */
+		)
+	</insert>
+	
+	<update id="updateDetailCode" parameterType="hashmap">
+		UPDATE MAST001D
+		   SET USE_YN            = #{UseYn}
+		     , COMM_CTG_DTL_NM   = #{DetailName}
+		     , COMM_PROP_CONT_01 = #{Val1}
+		     , COMM_PROP_CONT_02 = #{Val2}
+		     , COMM_PROP_CONT_03 = #{Val3}
+		     , COMM_PROP_CONT_04 = #{Val4}
+		     , COMM_PROP_CONT_05 = #{Val5}
+		     , COMM_PROP_CONT_06 = #{Val6}
+		     , COMM_PROP_CONT_07 = #{Val7}
+		     , COMM_PROP_CONT_08 = #{Val8}
+		     , COMM_PROP_CONT_09 = #{Val9}
+		     , COMM_PROP_CONT_10 = #{Val10}
+		     , SORT_NO           = #{SortNo}
+		     , FINA_REGR_ID      = #{gvUsrId}
+		     , FINA_REG_DTM      = current_timestamp()
+		 WHERE WRK_MDUL_CD		 = #{ModuleCode}
+		   AND COMM_CTG_CD		 = #{MasterCode}
+		   AND COMM_CTG_DTL_CD   = #{DetailCode}
+	</update>
+
+	<select id="getCommonCodeDetailList" parameterType="hashmap" resultType="hashmap">
+		SELECT @num := @num + 1 		AS RecordID			/* row number */
+			 , A.COMM_CTG_CD			AS MasterCode		/* 공통코드 */
+		     , A.COMM_CTG_DTL_CD		AS DetailCode		/* 상세코드 */
+			 , A.COMM_CTG_DTL_NM		AS DetailName		/* 상세코드 명 */
+			 , A.RMK					AS Remark			/* 비고 */
+			 , A.USE_YN					AS UseYn			/* 사용여부 */
+			 , A.COMM_PROP_CONT_01		AS Val1				/* 속성값1 */
+		     , A.COMM_PROP_CONT_02		AS Val2				/* 속성값2 */
+		     , A.COMM_PROP_CONT_03		AS Val3				/* 속성값3 */
+		     , A.COMM_PROP_CONT_04		AS Val4				/* 속성값4 */
+		     , A.COMM_PROP_CONT_05		AS Val5				/* 속성값5 */
+		     , A.COMM_PROP_CONT_06		AS Val6				/* 속성값6 */
+		     , A.COMM_PROP_CONT_07		AS Val7				/* 속성값7 */
+		     , A.COMM_PROP_CONT_08		AS Val8				/* 속성값8 */
+		     , A.COMM_PROP_CONT_09		AS Val9				/* 속성값9 */
+		     , A.COMM_PROP_CONT_10		AS Val10			/* 속성값10 */
+		     , A.SORT_NO				AS SortNo			/* 정렬순서 */
+		     , Null						AS Actions
+		  FROM (SELECT @num := 0
+		             , A.*
+		          FROM MAST001D A
+		      ORDER BY A.USE_YN
+		             , A.SORT_NO
+		             , A.COMM_CTG_DTL_CD) A
+		<where>
+		   AND WRK_MDUL_CD = #{ModuleCode}
+		   AND COMM_CTG_CD = #{MasterCode}
+		</where>
+	  ORDER BY SORT_NO
+	</select>
+	
+	<select id="getGdsCommCode" parameterType="hashmap" resultMap="gdsCommCode">
+		SELECT B.WRK_MDUL_CD
+			 , B.COMM_CTG_CD
+			 , A.COMM_CTG_NM
+			 , B.COMM_CTG_DTL_CD
+			 , B.COMM_CTG_DTL_NM
+			 , B.COMM_PROP_CONT_01
+			 , B.COMM_PROP_CONT_02
+			 , B.COMM_PROP_CONT_03
+			 , B.COMM_PROP_CONT_04
+			 , B.COMM_PROP_CONT_05
+			 , B.COMM_PROP_CONT_06
+			 , B.COMM_PROP_CONT_07
+			 , B.COMM_PROP_CONT_08
+			 , B.COMM_PROP_CONT_09
+			 , B.COMM_PROP_CONT_10
+		  FROM MAST001M A
+		 INNER
+		  JOIN MAST001D B
+		    ON A.WRK_MDUL_CD = B.WRK_MDUL_CD
+		   AND A.COMM_CTG_CD = B.COMM_CTG_CD
+		 WHERE A.USE_YN 	 = 'Y'
+		   AND B.USE_YN 	 = 'Y'
+		<if test='ModulCode != null and ModulCode != ""'>
+		   AND A.WRK_MDUL_CD = #{ModulCode}		
+		</if>
+		<if test='CommonCode != null and CommonCode !=""'>
+		   AND B.COMM_CTG_CD IN 
+			<foreach collection="CommonCode" item="item" open="(" close=")" separator=",">
+				#{item}
+			</foreach>		
+		</if>
+	  ORDER BY A.SORT_NO, B.SORT_NO
+	</select>
+	<resultMap id="gdsCommCode" type="hashmap">
+		<id property="moduleCode" column="WRK_MDUL_CD" />
+		<collection property="items" javaType="java.util.List" ofType="hashmap">
+			<id property="commCode" column="COMM_CTG_CD" />
+			<result property="commName" column="COMM_CTG_NM" />
+			<collection property="items" javaType="java.util.List" ofType="hashmap">
+				<id property="detailCode" column="COMM_CTG_DTL_CD" />
+				<result property="detailName" column="COMM_CTG_DTL_NM" />
+				<result property="attr1" column="COMM_PROP_CONT_01" />
+				<result property="attr2" column="COMM_PROP_CONT_02" />
+				<result property="attr3" column="COMM_PROP_CONT_03" />
+				<result property="attr4" column="COMM_PROP_CONT_04" />
+				<result property="attr5" column="COMM_PROP_CONT_05" />
+				<result property="attr6" column="COMM_PROP_CONT_06" />
+				<result property="attr7" column="COMM_PROP_CONT_07" />
+				<result property="attr8" column="COMM_PROP_CONT_08" />
+				<result property="attr9" column="COMM_PROP_CONT_09" />
+				<result property="attr10" column="COMM_PROP_CONT_10" />
+			</collection>
+		</collection>
+	</resultMap>
+
+</mapper>

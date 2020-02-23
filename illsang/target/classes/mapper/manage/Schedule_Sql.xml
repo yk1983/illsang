@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="schedule">
+
+	<select id="getRoastingScheduleList" parameterType="hashmap" resultType="hashmap">
+		SELECT SCHD_ID			AS id
+			 , TITLE			AS title
+			 , MEMO				AS description
+			 , DATE_FORMAT(STT_DTM, '%Y-%m-%dT%H:%i:%S')	AS start
+			 , DATE_FORMAT(END_DTM, '%Y-%m-%dT%H:%i:%S')	AS end
+			 , URL				AS url
+			 , CLS				AS className
+			 , FIRS_REGR_ID
+			 , FIRS_REG_DTM
+			 , FINA_REGR_ID
+			 , FINA_REG_DTM
+  		  FROM SCHD001M
+	</select>
+	
+</mapper>

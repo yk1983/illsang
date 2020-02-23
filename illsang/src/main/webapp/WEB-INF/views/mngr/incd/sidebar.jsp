@@ -44,12 +44,74 @@
             </div>
         </div>
         <ul class="nav">
-            <li class="nav-item active ">
-                <a class="nav-link" href="../examples/dashboard.html">
+            <li class="nav-item <c:if test="${param.gv_lclass eq 'dshb'}">active</c:if>">
+                <a class="nav-link" href="/sr-admin">
                     <i class="material-icons">dashboard</i>
                     <p>Dashboard</p>
                 </a>
             </li>
+            <!-- MAST -->
+            <li class="nav-item <c:if test="${param.gv_lclass eq 'mstr'}">active</c:if>">
+                <a class="nav-link" data-toggle="collapse" href="#mstr">
+                    <i class="material-icons">image</i>
+                    <p>
+                        마스터관리 <b class="caret"></b>
+                    </p>
+                </a>
+                <div class="collapse <c:if test="${param.gv_lclass eq 'mstr'}">show</c:if>" id="mstr">
+                    <ul class="nav">
+                        <li class="nav-item <c:if test="${param.gv_prgr eq 'goods'}">active</c:if>">
+                            <a class="nav-link" href="/sr-admin/goods">
+                                <span class="sidebar-mini"> GBL </span>
+                                <span class="sidebar-normal"> 생두목록 </span>
+                            </a>
+                        </li>
+                        <li class="nav-item <c:if test="${param.gv_prgr eq 'code'}">active</c:if>">
+                            <a class="nav-link" href="/sr-admin/code">
+                                <span class="sidebar-mini"> CC </span>
+                                <span class="sidebar-normal"> 공통코드 </span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="../examples/pages/timeline.html">
+                                <span class="sidebar-mini"> T </span>
+                                <span class="sidebar-normal"> Timeline </span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="../examples/pages/login.html">
+                                <span class="sidebar-mini"> LP </span>
+                                <span class="sidebar-normal"> Login Page </span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="../examples/pages/register.html">
+                                <span class="sidebar-mini"> RP </span>
+                                <span class="sidebar-normal"> Register Page </span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="../examples/pages/lock.html">
+                                <span class="sidebar-mini"> LSP </span>
+                                <span class="sidebar-normal"> Lock Screen Page </span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="../examples/pages/user.html">
+                                <span class="sidebar-mini"> UP </span>
+                                <span class="sidebar-normal"> User Profile </span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="../examples/pages/error.html">
+                                <span class="sidebar-mini"> E </span>
+                                <span class="sidebar-normal"> Error Page </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            
             <li class="nav-item ">
                 <a class="nav-link" data-toggle="collapse" href="#pagesExamples">
                     <i class="material-icons">image</i>

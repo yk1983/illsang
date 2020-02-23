@@ -80,6 +80,6 @@
 		<script src="/js/demo/demo.js"></script>
 		<!-- User action script -->
 		<script src="/js/common_lib.js"></script>
-		<script src="/js/actn/${param.gv_prgr}.js"></script>
+		<script src="/js/actn/${param.gv_prgr}.js?vsersion=1.0"></script>
 	</body>
 </html>
