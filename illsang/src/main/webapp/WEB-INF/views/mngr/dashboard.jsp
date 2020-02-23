@@ -15,6 +15,7 @@
  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 -->
 <c:import url="/WEB-INF/views/mngr/incd/header.jsp">
+	<c:param name="gv_lclass" value="dshb" />
 	<c:param name="gv_prgr" value="dashboard" />
 	<c:param name="gv_prgrNm" value="Dashboard" />
 	<c:param name="gv_sidebar" value="on" />

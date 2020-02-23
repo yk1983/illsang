@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="store">
+
+	<insert id="insertStoreInfo" parameterType="hashmap">
+		INSERT INTO STOR001M
+		(
+			STOR_NM						/* # 1. 매장명 */
+		,   RPRS_NM						/* # 2. 대표자명 */
+		,   BSNS_NMBR					/* # 3. 사업자등록번호 */
+		,   PH_NMBR						/* # 4. 전화번호 */
+		,   C_PH_NMBR					/* # 5. 핸드폰번호 */
+		,   E_MAIL						/* # 6. 이메일 */
+		,   HPG_URL						/* # 7. 홈페이지주소 */
+		,  	PST_CD						/* # 8. 우편번호 */
+		,   JB_ADDR						/* # 9. 지번주소 */
+		,   JB_ADDR_DTL					/* #10. 지번상세주소 */
+		,   LD_ADDR						/* #11. 도로명주소 */
+		,   LD_ADDR_DTL					/* #12. 도로명상세주소 */
+		,   LAT							/* #13. 위도 */
+		,   LON							/* #14. 경도 */
+		,   MLBSNS_NMBR					/* #15. 통신판매업신고번호 */
+		,   MNGR_NM						/* #16. 개인정보보호책임자 */
+		,   MNGR_EMAIL					/* #17. 개인정보보호책임자이메일 */
+		,	RMK							/* #18. 비고 */
+		,	FIRS_REGR_ID				/* #19. 최초등록자 */
+		,	FIRS_REG_DTM				/* #20. 최초등록일 */
+		,	FINA_REGR_ID				/* #21. 최종등록자 */
+		,	FINA_REG_DTM				/* #22. 최종등록일 */
+		)
+		VALUES
+		(
+			#{storeName}				/* # 1. 매장명 */
+		,   #{ownerName}				/* # 2. 대표자명 */
+		,   #{bsnsLicenseNo}			/* # 3. 사업자등록번호 */
+		,   #{telNo}					/* # 4. 전화번호 */
+		,   #{phoneNo}					/* # 5. 핸드폰번호 */
+		,	#{email}					/* # 6. 이메일 */
+		,   #{homepageUrl}				/* # 7. 홈페이지주소 */
+		,	#{postNo}					/* # 8. 우편번호 */
+		,	#{jbAddress}				/* # 9. 지번주소 */
+		,	#{jbAddressDtl}				/* #10. 지번상세주소 */
+		,	#{ldAddress}				/* #11. 도로명주소 */
+		,	#{ldAddressDtl}				/* #12. 도로명상세주소 */
+		,	#{lat}						/* #13. 위도 */
+		,	#{lon}						/* #14. 경도 */
+		,	#{mlBsnsLicenseNo}			/* #15. 통신판매업신고번호 */
+		,	#{managerName}				/* #16. 개인정보보호책임자 */
+		,	#{managerEmail}				/* #17. 개인정보보호책임자이메일 */
+        ,   #{remark}                   /* #18. 비고 */
+        ,   'SYSTEM'                    /* #19. 최초등록자 */
+        ,   current_timestamp()         /* #20. 최초등록일 */
+        ,   'SYSTEM'                    /* #21. 최종등록자 */
+        ,   current_timestamp()         /* #22. 최종등록일 */
+		)
+	</insert>
+	
+	<update id="updateStoreInfo" parameterType="hashmap">
+		UPDATE STOR001M
+		   SET STOR_NM 		= #{storeName}
+             , RPRS_NM 		= #{ownerName}
+             , BSNS_NMBR 	= #{bsnsLicenseNo}
+             , PH_NMBR 		= #{telNo}
+             , C_PH_NMBR 	= #{phoneNo}
+             , E_MAIL 		= #{email}
+             , HPG_URL 		= #{homePageUrl}
+             , PST_CD 		= #{postNo}
+             , JB_ADDR 		= #{jbAddress}
+             , JB_ADDR_DTL 	= #{jbAddressDtl}
+             , LD_ADDR 		= #{ldAddress}
+             , LD_ADDR_DTL 	= #{ldAddressDtl}
+             , LAT 			= #{lat}
+             , LON 			= #{lon}
+             , MLBSNS_NMBR 	= #{mlBsnsLicenseNo}
+             , MNGR_NM 		= #{managerName}
+             , MNGR_EMAIL	= #{managerEmail}
+             , FINA_REGR_ID = 'userId'
+             , FINA_REG_DTM = current_timestamp()
+         WHERE STOR_CD 		= #{storeCode}
+	</update>
+
+	<select id="getStoreInfo" parameterType="hashmap" resultType="hashmap">
+		SELECT STOR_CD		AS storeCode
+             , STOR_NM		AS storeName
+             , RPRS_NM		AS ownerName
+             , BSNS_NMBR	AS bsnsLicenseNo
+             , PH_NMBR		AS telNo
+             , C_PH_NMBR	AS phoneNo
+             , E_MAIL		AS email
+             , HPG_URL		AS homepageUrl
+             , PST_CD		AS postNo
+             , JB_ADDR		AS jbAddress
+             , JB_ADDR_DTL	AS jbAddressDtl
+             , LD_ADDR		AS ldAddress
+             , LD_ADDR_DTL	AS ldAddressDtl
+             , LAT			AS lat
+             , LON			AS lon
+             , MLBSNS_NMBR	AS mlBsnsLicenseNo
+             , MNGR_NM		AS managerName
+             , MNGR_EMAIL	AS managerEmail
+             , RMK			AS remark
+             , FIRS_REGR_ID	AS firstRegId
+             , FIRS_REG_DTM	AS firstRegDtm
+             , FINA_REGR_ID	AS finalRegId
+             , FINA_REG_DTM	AS finalRegDtm
+		  FROM STOR001M
+	     WHERE STOR_CD		= #{storeCode}
+	</select>
+
+</mapper>

@@ -22,7 +22,10 @@
 	<body class="<c:if test="${param.gv_sidebar eq 'off'}">off-canvas-sidebar</c:if>">
 		<c:if test="${param.gv_sidebar eq 'on'}">
 			<div class="wrapper">
-				<c:import url="/WEB-INF/views/mngr/incd/sidebar.jsp" />
+				<c:import url="/WEB-INF/views/mngr/incd/sidebar.jsp">
+					<c:param name="gv_lclass" value="${param.gv_lclass}" />
+					<c:param name="gv_prgr" value="${param.gv_prgr }" />
+				</c:import>
 				<div class="main-panel">
 		</c:if>
 		

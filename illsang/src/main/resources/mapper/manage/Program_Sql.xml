@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="program">
+
+	<select id="getProgramCategoryList" parameterType="hashmap" resultType="hashmap">
+		SELECT ROW_NUMBER() OVER()	AS RecordID		/* row number */
+			 , CTGR_UPPR_CD			AS ParentCode	/* 상위 카테고리 코드 */
+		     , CTGR_CD				AS Code			/* 카테고리 코드 */
+		     , CTGR_NM				AS Name			/* 카테고리 명 */
+		     , CTGR_ICON			AS Icon			/* 아이콘 클래스명 */
+		     , CTGR_LVL				AS Level		/* 카테고리 레벨 */
+		     , USE_YN				AS UseYn		/* 사용여부 */
+		     , SORT_NO				AS SortNo		/* 정렬순서 */
+		     , NULL					AS Actions
+		  FROM SYST001M
+	  ORDER BY CTGR_LVL ASC
+	</select>
+	
+	<select id="getProgramCategoryTreeView" parameterType="hashmap" resultMap="dsProgramTreeView">
+		SELECT A.CTGR_CD			AS FIRS_NODE
+			 , A.CTGR_UPPR_CD		AS PARENT_FIRS_NODE
+		     , A.CTGR_NM			AS FIRS_NAME
+		     , A.CTGR_ICON			AS FIRS_ICON
+		     , B.CTGR_CD			AS SCND_NODE
+		     , B.CTGR_UPPR_CD		AS PARENT_SCND_NODE
+		     , B.CTGR_NM			AS SCND_NAME
+		     , B.CTGR_ICON			AS SCND_ICON
+		     , C.CTGR_CD			AS THRD_NODE
+		     , C.CTGR_UPPR_CD		AS PARENT_THRD_NODE
+		     , C.CTGR_NM			AS THRD_NAME
+		     , C.CTGR_ICON			AS THRD_ICON
+		     , D.CTGR_CD			AS FRTH_NODE
+		     , D.CTGR_UPPR_CD		AS PARENT_FRTH_NODE
+		     , D.CTGR_NM			AS FRTH_NAME
+		     , D.CTGR_ICON			AS FRTH_ICON
+		  FROM SYST001M A
+		  LEFT OUTER
+		  JOIN SYST001M B
+		    ON A.CTGR_CD = B.CTGR_UPPR_CD
+		  LEFT OUTER
+		  JOIN SYST001M C
+		    ON B.CTGR_CD = C.CTGR_UPPR_CD
+		  LEFT OUTER
+		  JOIN SYST001M D
+		    ON C.CTGR_CD = D.CTGR_UPPR_CD
+		 WHERE A.CTGR_LVL = 0
+		   AND A.CTGR_CD = 1
+	</select>
+	<resultMap type="hashmap" id="dsProgramTreeView">
+		<!-- <id property="id" column="FIRS_NODE" />
+		<result property="parent" column="PARENT_FIRS_NODE" /> -->
+		<result property="text" column="FIRS_NAME" />
+		<result property="icon" column="FIRS_ICON" />
+		<collection property="children" javaType="java.util.List" ofType="hashmap">
+			<!-- <id property="id" column="SCND_NODE" />
+			<result property="parent" column="PARENT_SCND_NODE" /> -->
+			<result property="text" column="SCND_NAME" />
+			<result property="icon" column="SCND_ICON" />
+			<collection property="children" javaType="java.util.List" ofType="hashmap">
+				<!-- <id property="id" column="THRD_NODE" />
+				<result property="parent" column="PARENT_THRD_NODE" /> -->
+				<result property="text" column="THRD_NAME" />
+				<result property="icon" column="THRD_ICON" />
+				<collection property="children" javaType="java.util.List" ofType="hashmap">
+					<!-- <id property="id" column="FRTH_NODE" />
+					<result property="parent" column="PARENT_FRTH_NODE" /> -->
+					<result property="text" column="FRTH_NAME" />
+					<result property="icon" column="FRTH_ICON" />
+				</collection>
+			</collection>
+		</collection>
+	</resultMap>
+	
+	<select id="getProgramList" parameterType="hashmap" resultType="hashmap">
+		SELECT ROW_NUMBER() OVER()	AS RecordID		/* row number */
+			 , CTGR_CD				AS CategoryCode
+			 , PGM_CD				AS Code
+			 , PGM_NM				AS Name
+			 , URL					AS Url
+			 , PGM_CRS				AS Crs
+			 , ICON					AS Icon
+			 , NEW_BTN_USE_YN		AS NewBtnUseYn
+			 , SAV_BTN_USE_YN		AS SavBtnUseYn
+			 , DEL_BTN_USE_YN		AS DelBtnUseYn
+			 , PRT_BTN_USE_YN		AS PrtBtnUseYn
+			 , XLS_UPLD_BTN_USE_YN	AS XlsUpldBtnUseYn
+			 , XLS_DNLD_BTN_USE_YN	AS XlsDnldBtnUseYn
+			 , ECT_1_BTN_USE_YN		AS Etc1BtnUseYn
+			 , ECT_2_BTN_USE_YN		AS Etc2BtnUseYn
+			 , ECT_3_BTN_USE_YN		AS Etc3BtnUseYn
+			 , ECT_4_BTN_USE_YN		AS Etc4BtnUseYn
+			 , ECT_5_BTN_USE_YN		AS Etc5BtnUseYn
+			 , ETC_1_BTN_NM			AS Etc1BtnName
+			 , ETC_2_BTN_NM			AS Etc2BtnName
+			 , ETC_3_BTN_NM			AS Etc3BtnName
+			 , ETC_4_BTN_NM			AS Etc4BtnName
+			 , ETC_5_BTN_NM			AS Etc5BtnName
+			 , USE_YN				AS UseYn
+			 , SORT_NO				AS SortNo
+			 , MNGR_PGM_YN			AS ManagerYn
+			 , RMK					AS Remark
+			 , FIRS_REGR_ID			AS FirstRegId
+			 , FIRS_REG_DTM			AS FirstRegDtm
+			 , FINA_REGR_ID			AS FinalRegId
+			 , FINA_REG_DTM			AS FinalRegDtm
+		  FROM SYST001D
+	</select>
+</mapper>

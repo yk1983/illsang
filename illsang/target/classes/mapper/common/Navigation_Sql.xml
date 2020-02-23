@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="navi">
+
+	<select id="getProgramInfo" parameterType="String" resultType="hashmap">
+		SELECT B.CTGR_CD 				AS firs_node_code
+		     , B.CTGR_NM 				AS firs_node_name
+		     , C.CTGR_CD 				AS scnd_node_code
+		     , C.CTGR_NM 				AS scnd_node_name
+		     , C.CTGR_ICON 				AS scnd_node_icon
+		     , D.CTGR_CD 				AS thrd_node_code
+		     , D.CTGR_NM 				AS thrd_node_name
+		     , M.PGM_CD					AS program_code
+		     , M.PGM_NM     			AS program_name
+		     , M.URL					AS program_url
+		     , M.NEW_BTN_USE_YN			AS new_btn_yn
+		     , M.SAV_BTN_USE_YN			AS save_btn_yn
+		     , M.DEL_BTN_USE_YN			AS del_btn_yn
+		     , M.PRT_BTN_USE_YN			AS prt_btn_yn
+		     , M.XLS_UPLD_BTN_USE_YN	AS xls_up_btn_yn
+		     , M.XLS_DNLD_BTN_USE_YN	AS xls_dn_btn_yn
+		     , M.ECT_1_BTN_USE_YN		AS etc1_btn_yn
+		     , M.ECT_2_BTN_USE_YN		AS etc2_btn_yn
+		     , M.ECT_3_BTN_USE_YN		AS etc3_btn_yn
+		     , M.ECT_4_BTN_USE_YN		AS etc4_btn_yn
+		     , M.ECT_5_BTN_USE_YN		AS etc5_btn_yn
+		     , M.ETC_1_BTN_NM			AS etc1_btn_name
+		     , M.ETC_2_BTN_NM			AS etc2_btn_name
+		     , M.ETC_3_BTN_NM			AS etc3_btn_name
+		     , M.ETC_4_BTN_NM			AS etc4_btn_name
+		     , M.ETC_5_BTN_NM			AS etc5_btn_name
+		     , M.RMK					AS note
+		  FROM SYST001M A
+		  LEFT OUTER
+		  JOIN SYST001M B
+		    ON A.CTGR_CD = B.CTGR_UPPR_CD
+		  LEFT OUTER
+		  JOIN SYST001M C
+		    ON B.CTGR_CD = C.CTGR_UPPR_CD
+		  LEFT OUTER
+		  JOIN SYST001M D
+		    ON C.CTGR_CD = D.CTGR_UPPR_CD
+		 INNER
+		  JOIN SYST001D M
+		    ON D.CTGR_CD  = M.CTGR_CD 
+		 WHERE A.CTGR_LVL = 0
+		   AND B.CTGR_CD  = 2
+		   AND M.URL 	  = #{gv_uri}
+	</select>
+
+	<select id="getNavigationList" parameterType="String" resultMap="dsNavigtion">
+		SELECT A.CTGR_LVL
+		     , B.CTGR_CD 	AS FIRS_NODE
+		     , B.CTGR_NM 	AS FIRS_NODE_NM
+		     , C.CTGR_CD 	AS SCND_NODE
+		     , C.CTGR_NM 	AS SCND_NODE_NM
+		     , C.CTGR_ICON 	AS SCND_NODE_ICON
+		     , D.CTGR_CD 	AS THRD_NODE
+		     , D.CTGR_NM 	AS THRD_NODE_NM
+		     , M.PGM_CD
+		     , M.PGM_NM
+		     , M.URL
+		     , M.PGM_CRS
+		  FROM SYST001M A
+		  LEFT OUTER
+		  JOIN SYST001M B
+		    ON A.CTGR_CD = B.CTGR_UPPR_CD
+		  LEFT OUTER
+		  JOIN SYST001M C
+		    ON B.CTGR_CD = C.CTGR_UPPR_CD
+		  LEFT OUTER
+		  JOIN SYST001M D
+		    ON C.CTGR_CD = D.CTGR_UPPR_CD
+		 INNER
+		  JOIN SYST001D M
+		    ON D.CTGR_CD  = M.CTGR_CD 
+		 WHERE A.CTGR_LVL = 0
+		   AND B.CTGR_CD  = 2
+	</select>
+	<resultMap type="hashmap" id="dsNavigtion">
+		<id property="first_node" column="FIRS_NODE"/>
+		<result property="first_node_name" column="FIRS_NODE_NM"/>
+		<collection property="items" javaType="java.util.List" ofType="hashmap">
+			<id property="second_node" column="SCND_NODE"/>
+			<result property="second_node_name" column="SCND_NODE_NM"/>
+			<result property="second_node_icon" column="SCND_NODE_ICON"/>
+			<collection property="items" javaType="java.util.List" ofType="hashmap">
+				<id property="third_node" column="THRD_NODE"/>
+				<result property="third_node_name" column="THRD_NODE_NM"/>
+				<collection property="items" javaType="java.util.List" ofType="hashmap">
+					<id property="pgm_cd" column="PGM_CD"/>
+					<result property="pgm_nm" column="PGM_NM"/>
+					<result property="pgm_url" column="URL"/>
+					<result property="pgm_crs" column="PGM_CRS"/>
+				</collection>
+			</collection>
+		</collection>
+	</resultMap>
+	
+</mapper>

@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="product">
+
+	<!-- 취급상품정보 추가 -->
+	<insert id="insertBeansProductInfo" parameterType="hashmap">
+		INSERT INTO MAST002M
+		(
+		    PRD_NM								/*  #1. 상품명 */
+		,   CO_CD								/*  #2. 회사코드 */
+		,   CNTR_CD								/*  #3. 국가코드 */
+		,   GRADE_CD							/*  #4. 등급코드 */
+		,   PROC_CD								/*  #5. 프로세스코드 */
+		,   TASTE_CD							/*  #6. 맛코드 */
+		,   BASE_PRICE							/*  #7. 구매가격 */
+		,   USE_YN								/*  #8. 사용여부 */
+		,   SORT_NO								/*  #9. 정렬순서 */
+		,   RMK									/* #10. 비고 */
+		,   FIRS_REGR_ID						/* #11. 최초등록자 */
+		,   FIRS_REG_DTM						/* #21. 최초등록일 */
+		,   FINA_REGR_ID						/* #22. 최종등록자 */
+		,   FINA_REG_DTM						/* #23. 최종등록일 */
+		)
+		VALUES
+		(
+		    #{ProductName}						/*  #1. 상품명 */
+		,   #{CompanyCode}						/*  #2. 회사코드 */
+		,   #{CountryCode}						/*  #3. 국가코드 */
+		,   #{GradeCode}						/*  #4. 등급코드 */
+		,   #{ProcessCode}						/*  #5. 프로세스코드 */
+		,   #{TasteCode}						/*  #6. 맛코드 */
+		,   #{Price}							/*  #7. 구매가격 */
+		,   #{UseYn}							/*  #8. 사용여부 */
+		,   #{SortNo}							/*  #9. 정렬순서 */
+		,   #{Remark}							/* #10. 비고 */
+		,   #{gvUsrId}							/* #11. 최초등록자 */
+		,   now()								/* #21. 최초등록일 */
+		,   #{gvUsrId}							/* #22. 최종등록자 */
+		,   now()								/* #23. 최종등록일 */
+		)
+	</insert>
+	
+	<!-- 취급상품정보 수정 -->
+	<update id="updateBeansProductInfo" parameterType="hashmap">
+		UPDATE MAST002M
+		<set>
+			   USE_YN = #{UseYn}
+			<if test='ProductName != null and ProductName != ""'>
+			 , PRD_NM = #{ProductName}
+			</if>
+			<if test='CompanyCode != null and CompanyCode != ""'>
+			 , CO_CD = #{CompanyCode}
+			</if>
+			<if test='CountryCode != null and CountryCode != ""'>
+			 , CNTR_CD = #{CountryCode}
+			</if>
+			<if test='GradeCode != null and GradeCode != ""'>
+			 , GRADE_CD = #{GradeCode}
+			</if>
+			<if test='ProcessCode != null and ProcessCode != ""'>
+			 , PROC_CD = #{ProcessCode}
+			</if>
+			<if test='Price != null and Price != ""'>
+			 , BASE_PRICE = #{Price}
+			</if>
+			 , FINA_REGR_ID = #{gvUsrId}
+		     , FINA_REG_DTM = now()
+		</set>
+		 WHERE PRD_CD = #{ProductCode}
+	</update>
+	
+	<!-- 취급상품정보 삭제 -->
+	<delete id="deleteBeansProductInfo" parameterType="hashmap">
+		DELETE
+		  FROM MAST002M
+		 WHERE PRD_CD = #{ProductCode}
+	</delete>
+	
+	<!-- 취급상품정보 목록 조회 -->
+	<select id="getBeansProductList" parameterType="hashmap" resultType="hashmap">
+		SELECT ROW_NUMBER() OVER() 							  AS RecordID		/* row number */
+			 , PRD_CD										  AS ProductCode	/* 상품코드 */
+			 , PRD_NM										  AS ProductName	/* 상품 */
+			 , CO_CD										  AS CompanyCode	/* 회사코드 */
+			 , FN_MS_COMM_CTG_DTL_NM('MS', 'MS002', CO_CD)    AS CompanyName	/* 회사 */
+			 , CNTR_CD										  AS CountryCode	/* 국가코드 */
+			 , FN_MS_COMM_CTG_DTL_NM('MS', 'MS001', CNTR_CD)  AS CountryName	/* 국가 */
+			 , GRADE_CD										  AS GradeCode		/* 등급코드 */
+			 , FN_MS_COMM_CTG_DTL_NM('MS', 'MS003', GRADE_CD) AS GradeName		/* 등급 */
+			 , PROC_CD										  AS ProcessCode	/* 가공방식코드 */
+			 , FN_MS_COMM_CTG_DTL_NM('MS', 'MS004', PROC_CD)  AS ProcessName	/* 가공방식 */
+			 , TASTE_CD										  AS TasteCode		/* 맛코드 */
+			 , FN_MS_COMM_CTG_DTL_NM('MS', 'MS005', TASTE_CD) AS TasteName		/* 맛 */
+			 , BASE_PRICE									  AS Price			/* 구매가 */
+			 , USE_YN										  AS UseYn			/* 사용여부 */
+			 , FN_MS_COMM_CTG_DTL_NM('MS', 'MS006', USE_YN)   AS UseTxt			/* 사용여부 */
+			 , DATE_FORMAT(FINA_REG_DTM, '%Y-%m-%d')		  AS LastDate		/* 최종등록일 */
+			 , NULL											  AS Actions
+		  FROM MAST002M
+		<where>
+			<if test='CompanyCode != null and CompanyCode != ""'>
+		   AND CO_CD = #{CompanyCode}
+		   	</if>
+			<if test='CountryCode != null and CountryCode != ""'>
+		   AND CNTR_CD IN
+				<foreach collection="CountryCode" item="item" open="(" close=")" separator=",">
+					#{item}
+				</foreach>
+			</if>
+			<if test='GradeCode != null and GradeCode != ""'>
+		   AND GRADE_CD IN
+				<foreach collection="GradeCode" item="item" open="(" close=")" separator=",">
+					#{item}
+				</foreach>
+			</if>
+			<if test='ProcessCode != null and ProcessCode != ""'>
+    	   AND PROC_CD IN
+				<foreach collection="ProcessCode" item="item" open="(" close=")" separator=",">
+					#{item}
+				</foreach>
+			</if>
+			<if test='TasteCode != null and TasteCode != ""'>
+   		   AND TASTE_CD IN
+				<foreach collection="TasteCode" item="item" open="(" close=")" separator=",">
+					#{item}
+				</foreach>
+			</if>
+			<if test='UseYn != null and UseYn != ""'>
+		   AND USE_YN = #{UseYn}
+		   	</if>
+		</where>
+		ORDER BY
+				SORT_NO
+	</select>
+	
+	<!-- 취급상품정보 상세정보 조회 -->
+	<select id="findByBeansProduct" parameterType="hashmap" resultType="hashmap">
+		SELECT PRD_CD									AS ProductCode	/* 상품코드 */
+			 , PRD_NM									AS ProductName	/* 상품 */
+			 , CO_CD									AS CompanyCode	/* 회사코드 */
+			 , CNTR_CD									AS CountryCode	/* 국가코드 */
+			 , GRADE_CD									AS GradeCode	/* 등급코드 */
+			 , PROC_CD									AS ProcessCode	/* 가공방식코드 */
+			 , TASTE_CD									AS TasteCode	/* 맛코드 */
+			 , BASE_PRICE								AS Price		/* 구매가 */
+			 , USE_YN								  	AS UseYn		/* 사용여부 */
+			 , DATE_FORMAT(FINA_REG_DTM, '%Y-%m-%d')	AS LastDate		/* 최종등록일 */
+		  FROM MAST002M
+		 WHERE PRD_CD = #{ProductCode}
+	</select>
+	
+	<select id="getStoreProductList" parameterType="hashmap" resultType="hashmap">
+		SELECT ROW_NUMBER() OVER() 	AS RecordID		/* row number */
+             , PRD_CD				AS Code			/* 상품코드 */
+             , PRD_NM				AS Name			/* 상품명 */
+             , BASE_PRICE			AS Price		/* 상품기본가격 */
+             , USE_YN				AS UseYn		/* 사용여부 */
+             , SORT_NO				AS SortNo		/* 정렬순서 */
+             , NULL					AS Actions
+             , RMK					AS Remark
+             , FIRS_REGR_ID 		AS FirstRegId
+             , FIRS_REG_DTM 		AS FirstRegDtm
+             , FINA_REGR_ID 		AS FinalRegId
+             , FINA_REG_DTM 		AS FinalRegDtm
+		  FROM MAST006M
+	</select>
+	
+	<select id="getStoreProductReportList" parameterType="hashmap" resultType="hashmap">
+		SELECT ROW_NUMBER() OVER() 			AS RecordID		/* row number */
+			 , C.CTGR_CD  					AS CategoryCode
+		     , C.CTGR_NM  					AS CategoryName
+		     , A.PRD_CD 					AS ProductCode
+		     , IFNULL(B.PRD_NM , A.PRD_NM) 	AS ProductName
+		     , A.BASE_PRICE 				AS Price
+		     , A.RMK						AS Remark
+             , A.FIRS_REGR_ID 				AS FirstRegId
+             , A.FIRS_REG_DTM 				AS FirstRegDtm
+             , A.FINA_REGR_ID 				AS FinalRegId
+             , A.FINA_REG_DTM 				AS FinalRegDtm
+		  FROM MAST006M A
+		 INNER
+		  JOIN MNMS007M B
+		    ON A.PRD_IDX = B.PRD_IDX
+		 INNER
+		  JOIN MNMS007C C
+		    ON B.CTGR_CD = C.CTGR_CD
+		 WHERE A.USE_YN = 'Y'
+		   AND B.USE_YN = 'Y'
+	</select>
+	
+	<select id="getStoreProductCategoryList" parameterType="hashmap" resultType="hashmap">
+		SELECT ROW_NUMBER() OVER() 	AS RecordID		/* row number */
+			 , CTGR_CD				AS Code
+			 , CTGR_NM				AS Name
+			 , CTGR_TP				AS Type
+			 , USE_YN				AS UseYn
+			 , SORT_NO				AS SortNo
+		  FROM MNMS007C
+	</select>
+	
+	<select id="getStoreProductOptionsList" parameterType="hashmap" resultType="hashmap">
+		SELECT ROW_NUMBER() OVER() 	AS RecordID		/* row number */
+		     , OPT_CD				AS Code
+		     , OPT_NM				AS Name
+		     , OPT_PRICE			AS Price
+		     , OPT_TYPE				AS Type
+		     , USE_YN				AS UseYn
+		     , SORT_NO				AS SortNo
+		  FROM MNMS007D
+		<where>
+			<if test="MenuIdx != null and MenuIdx != ''">
+		   AND MN_IDX = #{MenuIdx}
+			</if>
+		</where>
+	</select>
+	
+</mapper>
