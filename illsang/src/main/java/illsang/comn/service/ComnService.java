@@ -9,6 +9,6 @@ public interface ComnService {
 	
 	Map<String, Object> getCmnCd(String pMdulCd, String pCommCtgCd) throws Exception;
 	
-	Map<String, Object> getCmnCd(String pMdulCd, String[] pCommCtgCd) throws Exception;
+	Map<String, Object> getCmnCd(String pMdulCd, String[] pCommCtgCd) throws Exception;	
 	
 }

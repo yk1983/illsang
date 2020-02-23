@@ -16,16 +16,9 @@
 		<!--  Catagories  -->
 		<div class="catagories-menu">
 			<ul>
-				<li class="active"><a href="#">Hand Drip</a></li>
-				<li><a href="#">Espresso</a></li>
-				<li><a href="#">Veriety</a></li>
-				<li><a href="#">Tea</a></li>
-				<li><a href="#">Frappucino</a></li>
-				<li><a href="#">Ade</a></li>
-				<li><a href="#">Juice</a></li>
-				<li><a href="#">Smoothie</a></li>
-				<li><a href="#">Desert</a></li>
-				<li><a href="#">Others</a></li>
+				<c:forEach var="row" items="${ds_cmn.hdr[0].dtl}" varStatus="i">
+					<li class="<c:if test="${i.index eq 0 }">active</c:if>"><a href="#">${row.ctg_dtl_nm }</a></li>
+				</c:forEach>
 			</ul>
 		</div>
 	</div>
@@ -112,9 +105,8 @@
 
 		<div class="row">
 			<div class="col-12">
-				<div
-					class="product-topbar d-xl-flex align-items-end justify-content-between">
-					Total Products
+				<div class="product-topbar d-xl-flex align-items-end justify-content-between">
+					<!-- Total Products -->
 					<div class="total-products">
 						<p>Showing 1-8 0f 25</p>
 						<div class="view d-flex">
@@ -122,7 +114,7 @@
 							<a href="#"><i class="fa fa-bars" aria-hidden="true"></i></a>
 						</div>
 					</div>
-					Sorting
+					<!-- Sorting -->
 					<div class="product-sorting d-flex">
 						<div class="sort-by-date d-flex align-items-center mr-15">
 							<p>Sort by</p>
