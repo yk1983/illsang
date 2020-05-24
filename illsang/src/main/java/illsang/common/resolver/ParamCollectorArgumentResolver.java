@@ -45,12 +45,14 @@ public class ParamCollectorArgumentResolver implements HandlerMethodArgumentReso
 			if (values != null) {
 				collector.put(key, (values.length > 1) ? values : values[0]);
 			}
+			log.debug(collector.getMap().toString());
 		}
 		
 		String body = getRequestBody(webRequest);
 		if (StringUtils.isNotEmpty(body)) {
 			Gson gson = new Gson();
 			Map<String, Object> map = new HashMap<String, Object>();
+			log.debug("body ================ " + body);
 			map = gson.fromJson(body, map.getClass());
 			collector.putAll(map);
 		}

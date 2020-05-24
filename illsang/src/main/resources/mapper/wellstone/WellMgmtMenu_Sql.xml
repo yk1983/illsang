@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="wellmgmtmenu">
+
+	<!-- 상위메뉴정보 조회 -->
+	<select id="getTopMenuList" resultType="hashmap">
+		SELECT 		MENU_CD
+		, 			MENU_NM 
+		FROM 		WS_MENU
+		WHERE 		P_MENU_CD = 0		 
+		ORDER  BY 	SORT_NO
+		, 			MENU_NM
+	</select>
+	
+	<!-- 메뉴유형정보 조회 -->
+	<select id="getMenuTypeList" resultType="hashmap">
+		SELECT 		MENU_TP
+		, 			MENU_NM 
+		FROM 		WS_CODE 
+		WHERE 		GRP_CD = '001' 
+		AND 		USE_YN  = 'Y' 
+		ORDER  BY 	SORT_NO 
+	</select>
+	
+	<!-- 메뉴코드정보 조회 -->
+	<select id="getMenuCdInfo" resultType="int">
+		SELECT IFNULL(max(MENU_CD), 1) FROM ws_menu
+	</select>
+	
+	<!-- 메뉴정보 등록 -->
+	<insert id="createMenuInfo" parameterType="hashmap">
+	INSERT INTO ws_menu
+	(
+		MENU_CD		/*  #1. 메뉴코드 */
+	, 	MENU_NM		/*  #2. 메뉴이름 */
+	, 	P_MENU_CD 	/*  #3. 상위메뉴코드 */
+	, 	MENU_TP 	/*  #4. 메뉴유형코드 */
+	, 	MENU_URL 	/*  #5. 메뉴주소 */
+	, 	USE_YN 		/*  #6. 사용여부 */
+	, 	SORT_NO 	/*  #7. 정렬순서 */
+	, 	RMK 		/*  #8. 비고 */
+	, 	REG_ID 		/*  #9. 최초등록자 */
+	, 	REG_DTM 	/*  #10. 최초등록일 */
+	, 	UPD_ID 		/*  #11. 최종수정자 */
+	, 	UPD_DTM 	/*  #12. 최종수정일 */
+	)
+	VALUES
+	(
+		#{menuCd}
+	, 	#{menuNm}
+	, 	cast(#{topMenu} as unsigned)
+	, 	#{menuTp}
+	, 	#{menuUrl}
+	, 	#{useYn}
+	, 	#{sortNo}	
+	, 	NULL
+	, 	'SYSTEM'
+	, 	curtime()
+	, 	'SYSTEM'
+	, 	curtime()
+	)
+	</insert>
+	
+	<!-- 메뉴정보 조회 -->
+	<select id="getMenuList" resultMap="selectMenuList">
+		select 		MENU_CD		/*  #1. 메뉴코드 */
+		, 			MENU_NM		/*  #2. 메뉴이름 */
+		, 			P_MENU_CD 	/*  #3. 상위메뉴코드 */
+		, 			MENU_TP 	/*  #4. 메뉴유형코드 */
+		, 			MENU_URL 	/*  #5. 메뉴주소 */
+		, 			USE_YN 		/*  #6. 사용여부 */
+		, 			SORT_NO 	/*  #7. 정렬순서 */
+		FROM 		WS_MENU
+		where   	P_MENU_CD = 0		
+		order by 	SORT_NO
+		, 			MENU_NM 
+	</select>
+	
+	<select id="selectMenu" resultType="illsang.wellstone.vo.WellMenu">
+		select 		MENU_CD	menuCd		/*  #1. 메뉴코드 */
+		, 			MENU_NM	menuNm		/*  #2. 메뉴이름 */
+		, 			P_MENU_CD pMenuCd 	/*  #3. 상위메뉴코드 */
+		, 			MENU_TP menuTp		/*  #4. 메뉴유형코드 */
+		, 			MENU_URL menuUrl 	/*  #5. 메뉴주소 */
+		, 			USE_YN useYn		/*  #6. 사용여부 */
+		, 			SORT_NO sortNo		/*  #7. 정렬순서 */
+		FROM 		WS_MENU
+		where   	P_MENU_CD = #{MENU_CD}
+		order by 	SORT_NO
+		, 			MENU_NM 
+	</select>
+	
+	<resultMap type="illsang.wellstone.vo.WellMenuList" id="selectMenuList">
+		<result column="MENU_CD" property="menuCd"/>
+		<result column="MENU_NM" property="menuNm"/>
+		<result column="P_MENU_CD" property="pMenuCd"/>
+		<result column="MENU_TP" property="menuTp"/>
+		<result column="MENU_URL" property="menuUrl"/>
+		<result column="USE_YN" property="useYn"/>
+		<result column="SORT_NO" property="sortNo"/>
+		<collection property="list" javaType="java.util.ArrayList" column="MENU_CD" ofType="illsang.wellstone.vo.WellMenu" select="selectMenu"/>
+	</resultMap>
+	
+	<!-- 메뉴정보 수정 -->
+	<update id="updateMenu" parameterType="hashmap">
+		UPDATE 	ws_menu
+		SET 	MENU_NM = #{menuNm}
+		, 		P_MENU_CD = cast(#{topMenu} as unsigned)
+		, 		MENU_TP = #{menuTp}
+		, 		MENU_URL = #{menuUrl}
+		, 		USE_YN = #{useYn}
+		, 		SORT_NO = #{sortNo}
+		, 		RMK = NULL
+		, 		UPD_ID = 'SYSTEM'
+		, 		UPD_DTM = curtime()
+		WHERE 	MENU_CD = #{menuCd}
+	</update>
+	
+	<!-- 메뉴정보 삭제 -->
+	<delete id="deleteMenu" parameterType="hashmap">
+		DELETE FROM ws_menu
+		WHERE MENU_CD = #{menuCd}
+	</delete>
+	
+</mapper>

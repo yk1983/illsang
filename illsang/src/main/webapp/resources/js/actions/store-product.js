@@ -4,14 +4,15 @@
 
 'use strict';
 
+//datatables select function
 var grid = function() {
 	var initTable = function() {
 		var obj = {},
 			table = $('#tbl-product-lst');
 		
-		table.DataTable($.extend(obj, gDataTableDefs, {
+		var dtable = table.DataTable($.extend(obj, gDataTableDefs, {
 			deferRender: true,
-			scrollY: '60vh',
+			scrollY: '50vh',
 			scrollCollapse: true,
 			scroller: true,
 			ajax: {
@@ -114,6 +115,42 @@ var grid = function() {
 		table.on('change', 'tbody tr .kt-checkbox', function() {
 			$(this).parents('tr').toggleClass('active');
 		});
+		dtable.on('select', function(e, dt, type, indexs) {
+			var rowData = table.DataTable().rows(indexs).data().toArray();
+			console.log('select', rowData);
+			
+			var cd = rowData[0].Code; 		//상품코드
+			var nm = rowData[0].Name; 		//상품명칭
+			var price = rowData[0].Price; 	//상품가격
+			var yn = rowData[0].UseYn;		//사용여부
+			
+			$('input[name="prdCd"]').val(cd);
+			$('input[name="prdNm"]').val(nm);
+			$('input[name="price"]').val(price);
+			if(yn == 'Y') {
+				$('input[name="useYn"][value="Y"]');
+			} else {
+				$('input[name="useYn"][value="N"]');
+			}
+			
+			//button
+			$('#btn-update').show();
+//			$('#btn-delete').show();
+			
+		}).on('deselect', function(e, dt, type, indexs) {
+			var rowData = table.DataTable().rows(indexs).data().toArray();
+			console.log('deselect', rowData);
+			
+			//reset 
+			$('input[name="prdCd"]').val('');
+			$('input[name="prdNm"]').val('');
+			$('input[name="price"]').val('');
+			$('input[name="useYn"][value="Y"]');
+			
+			//button
+			$('#btn-update').hide();
+//			$('#btn-delete').hide();
+		});
 	}
 	
 	return {
@@ -123,7 +160,200 @@ var grid = function() {
 		}
 	};
 }();
-
+/**************************************************************************
+ * Document ready view event
+ * @returns
+ **************************************************************************/
 $(document).ready(function() {
 	grid.init();
+	
+	$('#btn-save').on('click', function() {
+    	fn_save();
+    });
+	
+	$('#btn-update').on('click', function() {
+    	fn_update();
+    });
+	
+//	$('#btn-delete').on('click', function() {
+//    	fn_delete();
+//    });
+	
+	var files
+	
+	$('#file_test1').on('change', function() {
+		var fileInput = document.getElementById("file_test1");
+//		files = fileInput.files;
+//		var html = [];
+//		for (var i = 0; i < files.length; i++) {
+//			html.push('<div>');
+//			html.push('<input type="checkbox" name="chk-file">');
+//		    html.push(files[i].name);		    
+//		    html.push('</div>');
+//		}
+//		console.log(html.join(''));
+//		$('#file-list').html(html.join(''));
+//		$('#btn-delete').show();
+		$('#file_test1').append('<button>삭제</button>')
+		readInputFile(this);
+		$('#preview').find('img').width('100px');
+	});
+	
+//    img.load( function() {
+//   	   
+////   	   img.css('visibility','visible');
+//   	};
+	
+	$('#btn-delete').on('click', function() {
+		var $input = $("file_test");
+	    var $preview = $('#preview');
+	    resetInputFile($input, $preview);
+	});
+
+	
 });
+/**************************************************************************
+ * Local function event
+ * @returns
+ **************************************************************************/
+//등록 이미지 등록 미리보기
+//참고사이트 : https://mylife365.tistory.com/472
+function readInputFile(input) {
+    if(input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#preview').html('<img src=' + e.target.result + '>');
+        }
+        reader.readAsDataURL(input.files[0]);
+        
+        //동적으로 크기변경
+        var img = $('img');
+        if( img.width()  > img.height() ) {
+        	img.width('100px');
+  	   	}else{
+  	   		img.height('100px');
+  	   	}
+    }
+}
+
+
+//등록 이미지 삭제 ( input file reset )
+function resetInputFile($input, $preview) {
+    var agent = navigator.userAgent.toLowerCase();
+    if((navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1)) {
+        // ie 일때
+        $input.replaceWith($input.clone(true));
+        $preview.empty();
+    } else {
+        //other
+        $input.val("");
+        $preview.empty();
+    }       
+}
+
+function fn_save() {
+	var params = $('#frm-store-product').getFormData();
+	$.fn.trans('/manage/store/product',
+		'post',
+//		(gfn_isEmpty(params.prdCd)) ? 'post' : 'put',
+		params,
+		{
+			done: function(data) {
+				if (data.rslt.code == '0') {
+					swal.fire(
+		                '등록완료!',
+		                '신규 등록처리가 완료 되었습니다.',
+		                'success'
+		            );
+					$('#tbl-product-lst').DataTable().ajax.reload();
+				
+				} else {
+					swal.fire(
+			                '등록실패!',
+			                '이미 존재하는 상품입니다.',
+			                'fail'
+		            );
+				}
+			},
+			fail: function() {
+				
+			}
+		}
+	);
+}
+
+function fn_update() {
+	var params = $('#frm-store-product').getFormData();
+	$.fn.trans('/manage/store/product',
+			'put',
+//			(gfn_isEmpty(params.prdCd)) ? 'post' : 'put',
+			params,
+			{
+				done: function(data) {
+					if (data.rslt.code == '0') {
+						swal.fire(
+			                '수정완료!',
+			                '수정처리가 완료 되었습니다.',
+			                'success'
+			            );
+						
+						//button
+						$('#btn-update').hide();
+//						$('#btn-delete').hide();
+						
+						$('#tbl-product-lst').DataTable().ajax.reload();
+					
+					} else {
+						swal.fire(
+				                '수정실패!',
+				                '입력값 확인하세요.',
+				                'fail'
+			            );
+					}
+				},
+				fail: function() {
+					
+				}
+			}
+		);
+}
+
+/**
+ * 삭제 기능 사용안함
+ * @returns
+ */
+function fn_delete() {
+	var params = $('#frm-store-product').getFormData();
+	$.fn.trans('/manage/store/product',
+			'delete',
+//			(gfn_isEmpty(params.prdCd)) ? 'post' : 'put',
+			params,
+			{
+				done: function(data) {
+					if (data.rslt.code == '0') {
+						swal.fire(
+			                '삭제완료!',
+			                '삭제처리가 완료 되었습니다.',
+			                'success'
+			            );
+						
+						//button
+						$('#btn-update').hide();
+//						$('#btn-delete').hide();
+						
+						$('#tbl-product-lst').DataTable().ajax.reload();
+					
+					} else {
+						swal.fire(
+				                '삭제실패!',
+				                //'입력값 확인하세요.',
+				                'fail'
+			            );
+					}
+				},
+				fail: function() {
+					
+				}
+			}
+		);
+}

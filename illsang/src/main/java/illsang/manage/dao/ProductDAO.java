@@ -77,5 +77,45 @@ public class ProductDAO extends AbstractDAO {
 	public List<Map<String, Object>> getStoreProductOptionsList(Map<String, Object> map) {
 		return selectList("product.getStoreProductOptionsList", map);
 	}
+	
+	/**
+	 * @description 상품정보관리 품목정보 확인
+	 * @params Map<String, Object>
+	 * @return void
+	 * @throws
+	 */
+	public Map<String, Object> getStoreProduct(Map<String, Object> map) throws Exception {
+		return (Map<String, Object>) selectOne("product.getStoreProduct", map);
+	}
+	
+	/**
+	 * @description 상품정보관리 품목정보 생성
+	 * @params Map<String, Object>
+	 * @return void
+	 * @throws
+	 */
+	public void createStoreProductInfo(Map<String, Object> map) throws Exception{
+		insert("product.createStoreProductInfo", map); 
+	}
+
+	/**
+	 * @description 상품정보관리 품목정보 수정
+	 * @params Map<String, Object>
+	 * @return void
+	 * @throws
+	 */
+	public void updateStoreProductInfo(Map<String, Object> map) {
+		update("product.updateStoreProductInfo", map);
+	}
+
+	/**
+	 * @description 상품정보관리 품목정보 삭제
+	 * @params Map<String, Object>
+	 * @return void
+	 * @throws
+	 */
+	public void deleteStoreProductInfo(Map<String, Object> map) {
+		delete("product.deleteStoreProductInfo", map);
+	}
 
 }

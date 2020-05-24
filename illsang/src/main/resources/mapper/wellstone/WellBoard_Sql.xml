@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="wellboard">
+
+	<!-- 게시글번호 조회 -->
+	<select id="getBordCd" parameterType="hashmap" resultType="int">
+		SELECT IFNULL(max(POSTS_NO), 0) 
+		FROM 	ws_board
+		WHERE	CTGR_CD = #{ctgrCd}
+	</select>
+
+	<!-- 공지사항 등록 -->
+	<insert id="createNotice" parameterType="hashmap">
+	INSERT INTO ws_board
+	(
+		CTGR_CD 		/*  #1. 카테고리코드 */
+	, 	POSTS_NO 		/*  #2. 게시글번호 */
+	, 	P_POSTS_NO 		/*  #3. 상위게시번호 */
+	, 	LVL				/*  #4. 레벨 */
+	, 	TITLE 			/*  #5. 제목 */
+	, 	CONTENTS 		/*  #6. 내용 */
+	, 	WRITER 			/*  #7. 작성자 */
+	, 	USE_YN 			/*  #8. 사용여부 */
+	, 	NOTICE_YN 		/*  #9. 공지여부 */
+	<if test='noticeYn == "Y"'> 
+	, 	STT_DT 			/*  #10. 공지시작일 */
+	, 	END_DT 			/*  #11. 공지종료일 */
+	</if>
+	, 	HITS 			/*  #12. 조회수 */
+	, 	G_HITS 			/*  #13. 추천수 */
+	, 	RMK 			/*  #14. 비고 */
+	, 	REG_ID 			/*  #15. 최초등록자 */
+	, 	REG_DTM 		/*  #16. 최초등록일 */
+	, 	UPD_ID 			/*  #17. 최초수정자 */
+	, 	UPD_DTM 		/*  #18. 최초수정일 */
+	,	REG_DT			/*  #19. 등록일 */
+	)
+	VALUES
+	(
+		#{ctgrCd}
+	, 	#{postsNo}
+	, 	0
+	, 	0
+	, 	#{title}
+	, 	#{content}
+	, 	'SYSTEM'
+	, 	'Y'
+	, 	#{noticeYn}
+	<if test='noticeYn == "Y"'>
+	, 	#{start}
+	, 	#{end}
+	</if>
+	, 	0
+	, 	0
+	, 	NULL
+	, 	'SYSTEM'
+	, 	curtime()
+	, 	'SYSTEM'
+	, 	curtime()
+	,	curtime()
+	)
+	</insert>
+	
+	<!-- 공지사항 조회 -->
+	<select id="getNoticeList" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+		SELECT 	CASE WHEN NOTICE_YN = 'Y' then '[공지]' 
+            		ELSE RNUM
+            		END NO
+        , 		a.*        
+		from 
+		(
+			SELECT 	0 as RNUM
+			,		CTGR_CD
+			,		POSTS_NO
+			, 		P_POSTS_NO
+			, 		TITLE
+			, 		CONTENTS
+			, 		WRITER
+			, 		USE_YN
+			, 		NOTICE_YN
+			, 		STT_DT
+			, 		END_DT
+			, 		HITS
+			, 		G_HITS
+			, 		DATE_FORMAT(REG_DT, '%Y-%m-%d') as REG_DT
+			FROM 	ws_board 
+			WHERE  	CTGR_CD = #{ctgrCd} 
+			AND 	NOTICE_YN = 'Y'
+			AND 	date(now()) >= STT_DT  
+			AND 	date(now()) <= END_DT
+			]]>
+			<choose>
+				<when test="title == null and writer != null">
+					AND WRITER = #{writer}
+				</when>
+				<when test="writer == null and title != null">
+					AND TITLE = #{title}
+				</when>
+				<otherwise></otherwise>
+			</choose>
+			UNION
+			(
+				SELECT 	ROW_NUMBER() OVER (ORDER by REG_DTM DESC) as RNUM
+				,		CTGR_CD
+				, 		POSTS_NO
+				, 		P_POSTS_NO
+				, 		TITLE
+				, 		CONTENTS
+				, 		WRITER
+				, 		USE_YN
+				, 		NOTICE_YN
+				, 		STT_DT
+				, 		END_DT
+				, 		HITS
+				, 		G_HITS
+				, 		DATE_FORMAT(REG_DT, '%Y-%m-%d') as REG_DT
+				FROM 	ws_board 
+				WHERE 	CTGR_CD = #{ctgrCd}
+				and 	NOTICE_YN = 'N'
+				<choose>
+					<when test="title == null and writer != null">
+						AND WRITER = #{writer}
+					</when>
+					<when test="writer == null and title != null">
+						AND TITLE = #{title}
+					</when>
+					<otherwise></otherwise>
+				</choose>
+				limit 	#{startNum}, #{endNum}
+			)
+		) a
+	</select>
+	
+	<!-- 공지사항 전체 글 개수 조회 -->
+	<select id="getNoticeTotalCnt" parameterType="hashmap" resultType="int">
+		<![CDATA[
+		SELECT 	count(a.POSTS_NO) as total
+		from 
+		(
+			SELECT 	CTGR_CD
+			,		POSTS_NO
+			, 		P_POSTS_NO
+			, 		TITLE
+			, 		CONTENTS
+			, 		WRITER
+			, 		USE_YN
+			, 		NOTICE_YN
+			, 		STT_DT
+			, 		END_DT
+			, 		HITS
+			, 		G_HITS
+			, 		REG_DT
+			FROM 	ws_board 
+			WHERE  	CTGR_CD = #{ctgrCd}
+			AND 	NOTICE_YN = 'Y'
+			AND 	date(now()) >= STT_DT  
+			AND 	date(now()) <= END_DT
+			]]>
+			<choose>
+				<when test="title == null and writer != null">
+					AND WRITER = #{writer}
+				</when>
+				<when test="writer == null and title != null">
+					AND TITLE = #{title}
+				</when>
+				<otherwise></otherwise>
+			</choose>
+			UNION
+			(
+				SELECT 	CTGR_CD
+				, 		POSTS_NO
+				, 		P_POSTS_NO
+				, 		TITLE
+				, 		CONTENTS
+				, 		WRITER
+				, 		USE_YN
+				, 		NOTICE_YN
+				, 		STT_DT
+				, 		END_DT
+				, 		HITS
+				, 		G_HITS
+				, 		REG_DT
+				FROM 	ws_board 
+				WHERE 	CTGR_CD = #{ctgrCd}
+				and 	NOTICE_YN = 'N'
+				<choose>
+					<when test="title == null and writer != null">
+						AND WRITER = #{writer}
+					</when>
+					<when test="writer == null and title != null">
+						AND TITLE = #{title}
+					</when>
+					<otherwise></otherwise>
+				</choose>				
+			)
+		) a
+		
+	</select>
+
+</mapper>

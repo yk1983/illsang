@@ -1,0 +1,251 @@
+/*!
+ * Start Bootstrap - Modern Business (https://startbootstrap.com/template-overviews/modern-business)
+ * Copyright 2013-2019 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-logomodern-business-nav/blob/master/LICENSE)
+ */
+body {
+  padding-top: 56px;
+}
+
+.navibg{
+	background-color: #333;
+	
+}
+
+
+.navbar-expand-lg .navbar-nav .nav-link {
+    padding-right: 1.5rem;
+    padding-left: 1.5rem;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: #FFF;
+	font-size: 16px;
+    font-weight: 600;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: rgba(158,158,158,0.95);
+	transition: all 0.2s;
+}
+
+.navbar-dark .navbar-nav .nav-link:focus {
+	color:#c5d35d;
+	}
+
+	
+.navbar-dark .navbar-nav .nav-link.active {
+    color: #c5d35d;
+	transition: all 0.2s;
+}
+
+
+
+/*
+.nav-link:hover,.nav-link:hover:after{
+	background-color:rgba(158,158,158,0.05);
+	}
+
+
+.show>.nav-link {
+    background-color: rgba(158,158,158,0.05);
+}
+
+*/
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 10rem;
+    padding: 0;
+    margin: .125rem 0 0;
+    font-size: 1rem;
+    color: #212529;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: .25rem;
+}
+
+
+.dropdown-item {
+    display: block;
+    width: 100%;
+    padding: .5rem 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #212529;
+    text-align: inherit;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 0;
+	border-radius: .25rem;
+}
+
+.dropdown-item:hover {
+  background-color:#F0F0F0;
+  color: #212529;
+  border-radius: .25rem;
+}
+
+.dropdown-item:focus {
+  background-color: #c5d35d;
+  color: #212529;
+  border-radius: .25rem;
+}
+
+
+
+
+
+
+
+
+.bottom {
+    position: relative;
+    width: 100%;
+    min-height: 230px;
+    padding: 80px 0;
+/* 	background: url(../../images/bottombg.jpg) center center no-repeat; */
+	background: url(/img/w_images/bottombg.jpg) center center no-repeat;
+    background-color: #464741;
+    background-size: cover;
+    transition: all 0.3s;
+}
+
+.bottomCI {
+    display: block;
+    width: 150px;
+    height: 50px;
+    margin: 0 auto;
+}
+
+.bottomText {
+    display: block;
+    width: 90%;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.companyInfo1 {
+    padding-top: 20px;
+    font-size: 12px;
+    font-weight: 300;
+    color: #fff;
+    text-align: center;
+}
+
+.copyright {
+    padding-bottom: 20px;
+    font-size: 12px;
+    font-weight: 300;
+    color: #bbb;
+    text-align: center;
+}
+
+
+
+
+
+.modal-header-success {
+	background-color: #28a745;
+	color:#FFF;
+    display: flex;
+	align-items: flex-start;
+    justify-content: space-between;
+    padding: 1rem 1rem;
+    border-bottom: 1px solid #dee2e6;
+    border-top-left-radius: calc(.3rem - 1px);
+    border-top-right-radius: calc(.3rem - 1px);
+}
+	
+
+
+
+.modal-header-confirm {
+	background-color:#EEE;
+	color:#333;
+    display: flex;
+	align-items: flex-start;
+    justify-content: space-between;
+    padding: 1rem 1rem;
+    border-bottom: 1px solid #dee2e6;
+    border-top-left-radius: calc(.3rem - 1px);
+    border-top-right-radius: calc(.3rem - 1px);
+}
+	
+	
+	
+.modal-header-danger {
+	background-color: #ff3547;
+	color:#FFF;
+    display: flex;
+	align-items: flex-start;
+    justify-content: space-between;
+    padding: 1rem 1rem;
+    border-bottom: 1px solid #dee2e6;
+    border-top-left-radius: calc(.3rem - 1px);
+    border-top-right-radius: calc(.3rem - 1px);
+}
+	
+.white-text {
+    color: #fff ;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.btn-outline-success {
+    color: #00c851 ;
+    background-color: transparent ;
+    border: 2px solid #00c851 ;
+}
+
+.btn-success {
+    color: #fff;
+    background-color: #00c851;
+	border: 2px solid #00c851;
+}
+
+
+.btn-outline-danger {
+    color: #ff3547 ;
+    background-color: transparent ;
+    border: 2px solid #ff3547 ;
+}
+
+.btn-danger {
+    color: #fff;
+    background-color: #ff3547;
+	border: 2px solid #ff3547;
+}
+
+
+.agree {
+display: block;
+overflow: auto;
+height: 300px;
+margin-top: 5px;
+padding: 10px;
+border: 1px solid #ccc;
+border-radius: 3px;">
+}
+
+.agree h5 {
+    font-size: 1rem;
+}
+
+.agree p, ul, il{
+	font-size: 13px;
+}
+
+.fade {
+    transition: opacity 0s linear;
+}

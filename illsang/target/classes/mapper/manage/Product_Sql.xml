@@ -215,4 +215,56 @@
 		</where>
 	</select>
 	
+	<select id="getStoreProduct" parameterType="hashmap" resultType="hashmap">
+		select 	PRD_CD		/*  #1. 상품코드 */
+		, 		PRD_NM		/*  #2. 상품명 */
+		, 		BASE_PRICE	/*  #3. 가격 */
+		, 		USE_YN 		/*  #4. 사용여부 */
+		from 	mast006m 
+		where  	PRD_NM = #{prdNm}
+	</select>
+	
+	<insert id="createStoreProductInfo" parameterType="hashmap">
+		INSERT INTO MAST006M
+		(
+			PRD_NM			/*  #1. 상품명 */
+		, 	BASE_PRICE		/*  #2. 가격*/
+		, 	USE_YN			/*  #3. 사용여부*/
+		, 	SORT_NO			/*  #4. 정렬순서*/
+		, 	RMK				/*  #5. 비고*/
+		, 	FIRS_REGR_ID	/*  #6. 최초등록자*/
+		, 	FIRS_REG_DTM	/*  #7. 최초등록일*/
+		, 	FINA_REGR_ID	/*  #8. 최종수정자*/
+		, 	FINA_REG_DTM	/*  #9. 최종수정일*/
+		) 
+		VALUES
+		(
+		 	#{prdNm}
+		, 	#{price}
+		, 	#{useYn}
+		, 	NULL
+		,	NULL
+		, 	#{id}
+		, 	now()
+		, 	#{id}
+		, 	now()
+		)
+	</insert>
+	
+	<update id="updateStoreProductInfo" parameterType="hashmap">
+		UPDATE 	MAST006M
+		SET 	PRD_NM = #{prdNm}
+		, 		BASE_PRICE = #{price}
+		, 		USE_YN = #{useYn}
+		, 		SORT_NO = NULL
+		, 		RMK = NULL
+		, 		FINA_REGR_ID = #{id}
+		, 		FINA_REG_DTM = now()
+		WHERE 	PRD_CD = #{prdCd}	
+	</update>
+	
+	<delete id="deleteStoreProductInfo">
+		DELETE FROM mast006m
+		WHERE `PRD_CD`= #{prdCd}			
+	</delete>
 </mapper>

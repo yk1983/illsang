@@ -35,7 +35,7 @@
 
 <!-- ##### Footer Area Start ##### -->
 <footer class="footer_area clearfix">
-	<div class="container">
+	<div class="container" style="width: 100%">
 		<div class="row align-items-center">
 			<!-- Single Widget Area -->
 			<div class="col-12 col-lg-4">
@@ -73,17 +73,24 @@
 							</button>
 							<div class="collapse navbar-collapse" id="footerNavContent">
 								<ul class="navbar-nav ml-auto">
-									<li class="nav-item <c:out value="${param.home }" />"><a
-										class="nav-link" href="/">로스터리</a></li>
-									<li class="nav-item <c:out value="${param.menu }" />"><a
-										class="nav-link" href="/product">메뉴</a></li>
-									<li class="nav-item <c:out value="${param.dlvr }" />"><a
-										class="nav-link" href="/bean-delivery">원두납품</a></li>
-									<li class="nav-item <c:out value="${param.magazine }" />">
-										<a class="nav-link" href="/magazine">매거진</a>
+									<li class="nav-item <c:out value="${param.home }" />">
+										<a class="nav-link" href="/roastery">ABOUT US</a>
 									</li>
-									<li class="nav-item <c:out value="${param.shop }" />"><a
-										class="nav-link" href="/shop">SHOP</a></li>
+									<li class="nav-item <c:out value="${param.agreement }" />">
+										<a class="nav-link" href="/agreement">이용약관</a>
+									</li>
+									<li class="nav-item <c:out value="${param.privacy }" />">
+										<a class="nav-link" href="/privacy">개인정보처리방침</a>
+									</li>
+<%-- 									<li class="nav-item <c:out value="${param.dlvr }" />"> --%>
+<!-- 										<a class="nav-link" href="/bean-delivery">원두납품</a> -->
+<!-- 									</li> -->
+<%-- 									<li class="nav-item <c:out value="${param.magazine }" />"> --%>
+<!-- 										<a class="nav-link" href="/magazine">매거진</a> -->
+<!-- 									</li> -->
+<%-- 									<li class="nav-item <c:out value="${param.shop }" />"> --%>
+<!-- 										<a class="nav-link" href="/shop">SHOP</a> -->
+<!-- 									</li> -->
 								</ul>
 							</div>
 						</nav>

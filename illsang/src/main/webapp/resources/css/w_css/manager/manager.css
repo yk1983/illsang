@@ -1,0 +1,170 @@
+/*!
+ * Start Bootstrap - Modern Business (https://startbootstrap.com/template-overviews/modern-business)
+ * Copyright 2013-2019 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-logomodern-business-nav/blob/master/LICENSE)
+ */
+body {
+	padding-top: 80px;
+}
+
+.col-lg-6 span {
+	font-size: 13px;
+}
+
+.col-lg-4 span {
+	font-size: 13px;
+}
+
+.breadcrumb {
+	justify-content: left;
+	padding: 0rem 1rem;
+	margin-bottom: 1rem;
+	display: -ms-flexbox;
+	flex-wrap: wrap;
+	list-style: none;
+	background-color: rgba(0, 0, 0, 0);
+	border-radius: .25rem;
+}
+
+.breadcrumb li {
+	font-size: 13px;
+}
+
+.table {
+	width: 100%;
+	margin-bottom: 1rem;
+	font-size: 13px;
+	color: #212529;
+}
+
+.content, .content>.row, .sidebar {
+	min-height: 0;
+	white-space: nowrap;
+	padding-right: 0px;
+	padding-left: 0px;
+}
+
+.col-lg-10 {
+	min-height: calc(100vh - 250px);
+}
+
+.nav {
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+	padding-left: 15px;
+	margin-bottom: 0;
+	margin-top: 0rem;
+	list-style: none;
+}
+
+.nav-link-M {
+	color: #333;
+	font-size: 16px;
+	font-weight: 600;
+	display: block;
+	padding: .5rem 1rem;
+	display: block;
+	width: 100%;
+	clear: both;
+	background-color: transparent;
+	border: 0;
+}
+
+.nav-link-M:hover {
+	background-color: rgba(158, 158, 158, 0.2);
+	color: #333;
+	transition: all 0.1s;
+	text-decoration: none
+}
+
+.nav-link-M.active {
+	background-color: #c5d25d;
+	color: #333;
+	transition: all 0.1s;
+	text-decoration: none
+}
+
+.nav-item ul {
+	padding: 0rem 0rem 0 1.5rem;
+	color: #fff;
+}
+
+.title_h1 {
+	height: 80px;
+	margin: 0 auto;
+	font-size: 42px;
+	color: #222;
+	font-weight: 300;
+}
+
+.btn-link {
+	font-weight: 600;
+	text-decoration: none;
+	color: #333;
+}
+
+.card {
+	margin-bottom: .5rem;
+	border: 0px solid rgba(0, 0, 0, 0);
+	border-radius: 0rem;
+}
+
+.card-header {
+	border-bottom: 0px solid rgba(0, 0, 0, 0);
+}
+
+.card-header:hover {
+	border-bottom: 0px solid rgba(0, 0, 0, 0);
+	background-color: rgba(158, 158, 158, 0.2);
+}
+
+.card-header h5 {
+	font-size: 14px;
+	font-weight: 500;
+	text-decoration: none;
+	text-align: center;
+}
+
+.btn-link:hover {
+	text-decoration: none;
+	color: #000;
+}
+
+.btn-link.focus, .btn-link:focus {
+	text-decoration: underline;
+	box-shadow: none;
+	text-decoration: none;
+}
+
+.btn-toolbar {
+	display: block;
+}
+
+.btn-outline-info {
+	color: #17a2b8;
+	border-color: #17a2b8;
+}
+
+.bottom {
+	position: relative;
+	width: 100%;
+	min-height: 170px;
+	padding: 80px 0;
+/* 	background: url(../../images/bottombg.jpg) center center no-repeat; */
+	background: url(/img/w_images/bottombg.jpg) center center no-repeat;
+	background-color: #464741;
+	background-size: cover;
+	transition: all 0.3s;
+}
+
+.bottomCI {
+	display: block;
+	width: 150px;
+	height: 50px;
+	margin-top: 0px;
+	margin-right: auto;
+	margin-bottom: 10px;
+	margin-left: auto;
+}

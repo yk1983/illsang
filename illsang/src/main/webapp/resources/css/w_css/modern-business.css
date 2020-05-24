@@ -1,0 +1,75 @@
+/*!
+ * Start Bootstrap - Modern Business (https://startbootstrap.com/template-overviews/modern-business)
+ * Copyright 2013-2019 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-logomodern-business-nav/blob/master/LICENSE)
+ */
+body {
+	padding-top: 56px;
+}
+
+.req-h-618 {
+	height: 618px;
+}
+
+.req-float-left {
+	float: left;
+	margin-right: 15px;
+}
+
+.req-font-07 {
+	font-size: 0.7em;
+}
+
+.req-center {
+	text-align: center;
+}
+
+.carousel-item {
+	height: 30vh;
+	min-height: 300px;
+	background: no-repeat center center scroll;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.carousel-item-main {
+	height: 65vh;
+	min-height: 300px;
+	background: no-repeat center center scroll;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.portfolio-item {
+	margin-bottom: 30px;
+}
+
+.bg02 {
+	background-color: #464741;
+}
+
+.page-link {
+	position: relative;
+	display: block;
+	padding: .5rem .75rem;
+	margin-left: -1px;
+	line-height: 1.25;
+	color: #333;
+	background-color: #fff;
+	border: 1px solid #dee2e6;
+	font-size: 14px;
+}
+
+.page-link:hover {
+	position: relative;
+	display: block;
+	padding: .5rem .75rem;
+	margin-left: -1px;
+	line-height: 1.25;
+	color: #333;
+	border: 1px solid #dee2e6;
+}

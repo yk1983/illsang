@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import illsang.common.resolver.ParamCollector;
 import illsang.common.service.CommonService;
+import illsang.manage.em.Code;
 import illsang.manage.service.ProductService;
 
 /**
@@ -38,6 +39,7 @@ import illsang.manage.service.ProductService;
 public class BeansProductController {
 
 	private Logger log = LoggerFactory.getLogger(this.getClass());
+
 	
 	@Autowired
 	private ProductService service;
@@ -75,10 +77,10 @@ public class BeansProductController {
 			collector.getMap().put("gvUsrId", "ILS2002001"); // test usr
 			service.createBeansProductInfo(collector.getMap());
 			
-			res.put("code", 0);
-			res.put("message", "success");
+			res.put("code", Code.SUCCESS.getCode());
+			res.put("message", Code.SUCCESS.getDesc());
 		} catch (Exception e) {
-			res.put("code", -1);
+			res.put("code", Code.FAIL.getCode());
 			res.put("message", e.getMessage());
 		} finally {
 			mav.addObject("rslt", res);

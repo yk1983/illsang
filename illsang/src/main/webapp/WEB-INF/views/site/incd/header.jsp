@@ -81,7 +81,7 @@
 			<!-- Amado Nav -->
 			<nav class="amado-nav">
 				<ul>
-					<li class="<c:out value="${param.home }" />"><a href="/">로스터리</a></li>
+					<li class="<c:out value="${param.home }" />"><a href="/roastery">로스터리</a></li>
 					<li class="<c:out value="${param.menu }" />"><a href="/menu">메뉴</a></li>
 					<li class="<c:out value="${param.dlvr }" />"><a href="/bean-delivery">원두납품</a></li>
 					<li class="<c:out value="${param.mgzn }" />"><a href="/magazine">매거진</a></li>

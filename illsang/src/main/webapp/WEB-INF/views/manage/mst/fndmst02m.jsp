@@ -23,48 +23,59 @@
 					</div>
 				</div>
 				<!--begin::Form-->
-				<form class="kt-form">
+				<form class="kt-form" id="frm-store-product">
 					<div class="kt-portlet__body">
 						<div class="kt-section kt-section--first">
 							<div class="form-group row">
 								<div class="col-lg-6">
 									<label>상품코드:</label>
-									<input type="text" class="form-control" placeholder="상품코드를 입력하세요.">
+									<input type="text" class="form-control" name="prdCd" placeholder="상품코드를 입력하세요.">
 									<span class="form-text text-muted">상품코드를 입력하세요.</span>
 								</div>
 								<div class="col-lg-6">
 									<label>상품명:</label>
-									<input type="text" class="form-control" placeholder="상품명을 입력하세요.">
+									<input type="text" class="form-control" name="prdNm" placeholder="상품명을 입력하세요.">
 									<span class="form-text text-muted">상품명을 입력하세요.</span>
 								</div>
 							</div>
 							<div class="form-group row">
 								<div class="col-lg-6">
 									<label>상품가격:</label>
-									<input type="number" class="form-control" placeholder="상품가격을 입력하세요.">
+									<input type="number" class="form-control" name="price" placeholder="상품가격을 입력하세요.">
 									<span class="form-text text-muted">상품가격을 입력하세요.</span>
 								</div>
 								<div class="col-lg-6">
 									<label class="">사용여부:</label>
 								<div class="kt-radio-inline">
 									<label class="kt-radio kt-radio--solid">
-										<input type="radio" name="example_2" checked value="Y"> 사용
+										<input type="radio" name="useYn" checked value="Y"> 사용
 										<span></span>
 									</label>
 									<label class="kt-radio kt-radio--solid">
-										<input type="radio" name="example_2" value="N"> 미사용
+										<input type="radio" name="useYn" value="N"> 미사용
 										<span></span>
 									</label>
 								</div>
 								<span class="form-text text-muted">사용여부를 선택하세요.</span>
 								</div>
 							</div>
+							<div class="form-group row">
+								<input type="file" name="file" id="file_test1">
+								<input type="file" name="file" id="file_test2">
+								<input type="file" name="file" id="file_test3">
+								<input type="file" name="file" id="file_test4">
+								<input type="file" name="file" id="file_test5">
+							</div>
+							<div id="preview"></div>
+							<div class="form-group row" id="file-list"></div>							
 						</div>
 					</div>
 					<div class="kt-portlet__foot">
 						<div class="kt-form__actions">
-							<button type="reset" class="btn btn-primary">Submit</button>
-							<button type="reset" class="btn btn-secondary">Cancel</button>
+							<button type="reset" class="btn btn-primary" id="btn-save">저장</button>
+							<button type="reset" class="btn btn-warning" id="btn-update" style="display: none;">수정</button>
+<!-- 							<button type="reset" class="btn btn-danger" id="btn-delete" style="display: none;">삭제</button> -->
+							<button type="reset" class="btn btn-secondary" id="btn-cancle">취소</button>
 						</div>
 					</div>
 				</form>
