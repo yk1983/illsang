@@ -123,4 +123,16 @@
 		WHERE MENU_CD = #{menuCd}
 	</delete>
 	
+	<!-- 공통코드 가져오기 -->
+	<select id="getCommonList" parameterType="String" resultType="hashmap">
+		SELECT 		GRP_CD
+		, 			GRP_NM
+		, 			MENU_TP
+		, 			MENU_NM
+		FROM 		ws_code
+		WHERE 		GRP_CD = #{param}
+		AND 		USE_YN = 'Y'
+		ORDER BY 	SORT_NO
+	</select>
+	
 </mapper>

@@ -106,6 +106,8 @@
     </div>
     <!-- /Page Content -->
 
+<c:import url="/WEB-INF/views/wellstone/well_modal.jsp" />
+
 <c:import url="/WEB-INF/views/wellstone/well_footer.jsp">
 	<c:param name="category" value="${category}" />
 </c:import>

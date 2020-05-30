@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="wellproduct">
+
+	<!-- 제품카테고리 정보 조회 -->
+	<select id="getProductCtgrList" resultType="hashmap">
+		select 		MENU_CD		/*  #1. 메뉴코드 */
+		, 			MENU_NM		/*  #2. 메뉴이름 */
+		, 			P_MENU_CD 	/*  #3. 상위메뉴코드 */
+		, 			MENU_TP 	/*  #4. 메뉴유형코드 */
+		, 			MENU_URL 	/*  #5. 메뉴주소 */
+		, 			USE_YN 		/*  #6. 사용여부 */
+		, 			SORT_NO 	/*  #7. 정렬순서 */
+		FROM 		WS_MENU
+		where   	P_MENU_CD = 1	
+		order by 	SORT_NO
+		, 			MENU_NM 
+	</select>
+	
+	<!-- 제품번호 조회 -->
+	<select id="getProductCd" parameterType="hashmap" resultType="int">
+		SELECT IFNULL(max(PRD_CD), 0) 
+		FROM 	ws_product
+		WHERE	CTGR_CD = #{ctgrCd}
+	</select>
+	
+	<!-- 제품중복조회 -->
+	<select id="getProductNm" parameterType="hashmap" resultType="int">
+		SELECT IfNULL((	select 	PRD_CD 
+						FROM 	ws_product 
+						WHERE	CTGR_CD = #{prdCtgr} 
+						AND 	PRD_NM = #{prdNm}), 0) as prdcd
+	</select>
+	
+	<!-- 제품등록 -->
+	<insert id="createProduct" parameterType="hashmap">
+		INSERT INTO ws_product
+		(
+			CTGR_CD
+		, 	PRD_CD
+		, 	PRD_NM
+		, 	CONTENTS
+		, 	USE_YN
+		, 	REG_DT
+		, 	RMK
+		, 	REG_ID
+		, 	REG_DTM
+		, 	UPD_ID
+		, 	UPD_DTM
+		)
+		VALUES
+		(
+			#{prdCtgr}
+		, 	#{prdCd}
+		, 	#{prdNm}
+		, 	NULL
+		, 	'Y'
+		, 	curtime()
+		, 	NULL
+		, 	'SYSTEM'
+		, 	curtime()
+		, 	'SYSTEM'
+		, 	curtime()
+		)
+	</insert>
+	
+	<!-- 제품이미지등록 -->
+	<insert id="createProductFile" parameterType="hashmap">
+		INSERT INTO ws_file
+		(
+			CTGR_CD
+		, 	POST_NO
+		, 	REQ_NO
+		, 	FILE_NM
+		, 	R_FILE_NM
+		, 	FILE_SIZE
+		, 	FILE_EXT
+		, 	USE_YN
+		, 	MAIN_YN
+		, 	THUMBNAIL_YN
+		, 	RMK
+		, 	REG_ID
+		, 	REG_DTM
+		, 	UPD_ID
+		, 	UPD_DTM
+		)
+		VALUES
+		<foreach collection="list" item="product" separator=",">
+		(	
+			#{list.prdCtgr}
+		, 	#{list.prdCd}
+		, 	#{list.reqNo}
+		, 	#{list.STORED_FILE_NAME}
+		, 	#{list.ORIGINAL_FILE_NAME}
+		, 	#{list.FILE_SIZE}
+		, 	#{list.FILE_EXTENSION}
+		, 	'Y'
+		, 	#{list.MAIN_YN}
+		, 	'N'
+		, 	NULL
+		, 	'SYSTEM'
+		, 	curtime()
+		, 	'SYSTEM'
+		, 	curtime()
+		)
+		</foreach>
+	</insert>
+	
+	<!-- 제품상세등록 -->
+	<insert id="createProductDetail" parameterType="hashmap">
+		INSERT INTO ws_product_d
+		(
+			CTGR_CD
+		, 	PRD_CD
+		, 	PRD_D_CD
+		, 	PRD_HRZ
+		, 	PRD_VRT
+		, 	PRD_THK
+		, 	AREA_BOX
+		, 	NMBR_BOX
+		, 	WGHT_AREA
+		, 	BOXCN_TON
+		, 	LINE_YN
+		, 	PRD_CORNER
+		, 	RMK
+		, 	REG_ID
+		, 	REG_DTM
+		, 	UPD_ID
+		, 	UPD_DTM
+		)
+		VALUES
+		<foreach collection="list" item="product" separator=",">
+		(
+			#{product.ctgrCd}
+		, 	#{product.prdCd}
+		, 	#{product.detailCd}
+		, 	#{product.hrz}
+		, 	#{product.vrt}
+		, 	#{product.thk}
+		, 	#{product.areaBox}
+		, 	#{product.nmbrBox}
+		, 	#{product.wghtArea}
+		, 	#{product.boxcnTon}
+		, 	#{product.lineYn}
+		, 	#{product.corner}
+		, 	NULL
+		, 	'SYSTEM'
+		, 	curtime()
+		, 	'SYSTEM'
+		, 	curtime()
+		)
+		</foreach>
+	</insert>
+	
+	<!-- 제품정보 조회 -->
+	<select id="getProductList" resultType="hashmap">
+		SELECT 		CTGR_CD
+		, 			PRD_CD
+		, 			PRD_NM
+		, 			CONTENTS
+		, 			USE_YN
+		, 			REG_DT
+		, 			REG_ID
+		FROM 		ws_product
+		WHERE 		USE_YN = 'Y'
+		ORDER BY 	PRD_CD
+	</select>
+	
+	<!-- 제품 전체 개수 조회 -->
+	<select id="getProductTotalCnt" resultType="int">
+		SELECT 	count(PRD_CD) as total 
+		FROM 	ws_product 
+		where 	USE_YN = 'Y'
+	</select>
+	
+	<!-- 제품상세정보 조회 -->
+	<select id="getProductDetailList" parameterType="hashmap" resultType="hashmap">
+		SELECT 	CTGR_CD
+		, 		PRD_CD
+		, 		PRD_D_CD
+		, 		PRD_HRZ
+		,		PRD_VRT
+		, 		PRD_THK
+		, 		AREA_BOX
+		, 		NMBR_BOX
+		, 		WGHT_AREA
+		, 		BOXCN_TON
+		, 		LINE_YN
+		, 		PRD_CORNER
+		FROM 	ws_product_d 
+		where 	CTGR_CD = #{ctgrCd} 
+		and 	PRD_CD = #{prdCd}
+		order by PRD_D_CD
+	</select>
+	
+	<resultMap type="illsang.wellstone.vo.WellProductDetailList" id="selectProductDetailList">
+		<collection property="list" javaType="java.util.ArrayList" column="PRD_CD" ofType="illsang.wellstone.vo.WellProductDetail" />
+	</resultMap>
+	
+	<select id="selectProductDetail" resultType="illsang.wellstone.vo.WellProductDetail">
+		SELECT 	CTGR_CD ctgrCd
+		, 		PRD_CD prdCd
+		, 		PRD_D_CD detailCd
+		, 		PRD_HRZ hrz
+		,		PRD_VRT vrt
+		, 		PRD_THK thk
+		, 		AREA_BOX areaBox
+		, 		NMBR_BOX nmbrBox
+		, 		WGHT_AREA wghtArea
+		, 		BOXCN_TON boxcnTon
+		, 		LINE_YN lineYn
+		, 		PRD_CORNER corner
+		FROM 	ws_product_d 
+		WHERE 	PRD_CD = #{PRD_CD}
+		order by PRD_D_CD
+	</select>
+	
+</mapper>

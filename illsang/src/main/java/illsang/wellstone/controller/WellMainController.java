@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import illsang.common.resolver.ParamCollector;
 import illsang.wellstone.service.WellMgmtMenuService;
+import illsang.wellstone.service.WellProductService;
 
 @RestController
 @RequestMapping(value = "/wellstone")
@@ -23,6 +24,15 @@ public class WellMainController {
 	
 	@Autowired
 	private WellMgmtMenuService service;
+	
+	@Autowired
+	private WellProductService pservice;
+	
+	@RequestMapping(value = "/juso", method = RequestMethod.GET)
+	public ModelAndView getWellJusoPage() {
+		ModelAndView mav = new ModelAndView("wellstone/jusoPopup");
+		return mav;
+	}
 	
 	/**
 	 * 웰스톤 메인페이지 호출
@@ -34,9 +44,44 @@ public class WellMainController {
 	public ModelAndView getWellStoneMainPage() {
 		ModelAndView mav = new ModelAndView("wellstone/well_main");
 		try {
+			
+			String buildingCd = "004";
+			String wallCd = "005";
+			String exteriorCd = "006";
+			String interiorCd = "007";
+			String areaCd = "008";
+			
 			//메뉴정보 가져오기
 			List<Map<String, Object>> list = service.getMenuList();
+			
+			//건물유형 정보 가져오기(공통코드)
+			List<Map<String, Object>> buildingList = service.getCommonList(buildingCd);
+			
+			//벽정보 가져오기(공통코드)
+			List<Map<String, Object>> wallList = service.getCommonList(wallCd);
+			
+			//외장정보 가져오기(공통코드)
+			List<Map<String, Object>> exteriorList = service.getCommonList(exteriorCd);
+			
+			//내장정보 가져오기(공통코드)
+			List<Map<String, Object>> interiorList = service.getCommonList(interiorCd);
+			
+			//지역정보 가져오기(공통코드)
+			List<Map<String, Object>> areaList = service.getCommonList(areaCd);
+			
+			//제품정보 가져오기
+			List<Map<String, Object>> productList = pservice.getProductList();
+			
+			mav.addObject("category", "main");
 			mav.addObject("menuList", list);
+			mav.addObject("buildingList", buildingList);
+			mav.addObject("wallList", wallList);
+			mav.addObject("productList", productList);
+			mav.addObject("exteriorList", exteriorList);
+			mav.addObject("interiorList", interiorList);
+			mav.addObject("areaList", areaList);
+			
+			log.debug("******getWellStoneMainPage*****");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -81,8 +126,8 @@ public class WellMainController {
 	 * 웰스톤 관리자(메뉴관리)페이지 호출
 	 * @return
 	 */
-	@RequestMapping(value = "/m_menu", method = RequestMethod.GET)
-	public ModelAndView getWellManageMenuPage() {
+	@RequestMapping(value = "/manager/menu", method = RequestMethod.GET)
+	public ModelAndView getWellManagerMenuPage() {
 		ModelAndView mav = new ModelAndView("wellstone/well_m_menu");
 		try {
 			//상위메뉴 정보 가져오기

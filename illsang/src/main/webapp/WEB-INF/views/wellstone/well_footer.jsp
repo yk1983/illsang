@@ -26,21 +26,30 @@
 </footer>
 <!-- /Footer -->
 
+<c:import url="/WEB-INF/views/wellstone/well_modal.jsp" />
+
 </body>
 	<script src="/js/w_js/well-common.js" type="text/javascript"></script>
 	<script src="/js/w_js/well-paging.js" type="text/javascript"></script>
 	<c:choose>
-		<c:when test="${param.category eq 'm_menu'}">
+		<c:when test="${param.category eq 'menu'|| param.category eq 'm_menu'}">
 			<script src="/js/w_js/well-mgmt-menu.js" type="text/javascript"></script>
 		</c:when>
-		<c:when test="${param.category eq 'notice'}">
+		<c:when test="${param.category eq 'product'|| param.category eq 'm_product' ||
+						param.category eq 'm_product_detail'}">
+			<script src="/js/w_js/well-product.js" type="text/javascript"></script>
+		</c:when>
+		<c:when test="${param.category eq 'construction'|| param.category eq 'm_construction'}">
+			<script src="/js/w_js/well-construction.js" type="text/javascript"></script>
+		</c:when>
+		<c:when test="${param.category eq 'main'|| param.category eq 'estimate'|| 
+						param.category eq 'm_estimate'}">
+			<script src="/js/w_js/well-estimate.js" type="text/javascript"></script>
+		</c:when>
+		<c:when test="${param.category eq 'notice'|| param.category eq 'm_notice' 
+						|| param.category eq 'notice_detail'}">
 			<script src="/js/w_js/well-notice.js" type="text/javascript"></script>
 		</c:when>	
-		<c:when test="${param.category eq 'm_notice'}">
-			<script src="/js/w_js/well-notice.js" type="text/javascript"></script>
-		</c:when>
-		<c:otherwise>
-			
-		</c:otherwise>
+		<c:otherwise></c:otherwise>
 	</c:choose>
 </html>

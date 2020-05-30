@@ -196,7 +196,25 @@
 				</choose>				
 			)
 		) a
-		
+	</select>
+	
+	<select id="getNoticeDetail" parameterType="hashmap" resultType="hashmap"> 
+		SELECT 	CTGR_CD
+		, 		POSTS_NO
+		, 		P_POSTS_NO
+		, 		TITLE
+		, 		CONTENTS
+		, 		WRITER
+		, 		USE_YN
+		, 		NOTICE_YN
+		, 		STT_DT
+		, 		END_DT
+		, 		HITS
+		, 		G_HITS
+		, 		REG_DT
+		FROM 	ws_board 
+		WHERE 	CTGR_CD = #{ctgrCd}
+		AND		POSTS_NO = #{postCd}
 	</select>
 
 </mapper>

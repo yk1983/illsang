@@ -22,5 +22,8 @@ public interface WellMgmtMenuService {
 
 	//메뉴정보 삭제
 	void deleteMenu(Map<String, Object> map) throws Exception;
+
+	//공통코드 가져오기
+	List<Map<String, Object>> getCommonList(String param) throws Exception;
 	
 }

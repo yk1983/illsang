@@ -3,6 +3,7 @@ package illsang.wellstone.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import illsang.common.dao.AbstractDAO;
@@ -64,6 +65,14 @@ public class WellMgmtMenuDAO extends AbstractDAO{
 	 */
 	public void deleteMenu(Map<String, Object> map) throws Exception{
 		delete("wellmgmtmenu.deleteMenu", map);
+	}
+
+	/**
+	 * @description 공통코드 가져오기
+	 * @return List<Map<String,Object>>
+	 */
+	public List<Map<String, Object>> getCommonList(String param) throws Exception{
+		return selectList("wellmgmtmenu.getCommonList", param);
 	}
 	
 }

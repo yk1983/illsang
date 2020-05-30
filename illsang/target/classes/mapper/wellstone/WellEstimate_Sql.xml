@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="wellestimate">
+
+	<!-- 문의번호 조회 -->
+	<select id="getEstimateNo" parameterType="hashmap" resultType="int">
+		SELECT IFNULL(max(REQ_NO), 0) 
+		FROM 	ws_estimate
+	</select>
+	
+	<!-- 시공견적문의 등록 -->
+	<select id="createWellEstimate" parameterType="hashmap">
+		INSERT INTO ws_estimate
+		(
+			CTGR_CD		/*  #1. 메뉴코드 */
+		, 	REQ_NO 		/*  #2. 게시번호 */
+		, 	REQ_NM 		/*  #3. 신청자명 */
+		, 	PHONE_NO 	/*  #4. 연락처 */
+		, 	STAT 		/*  #5. 상태값 */
+		, 	RES_TXT 	/*  #6. 답변내용 */
+		, 	AREA_CD 	/*  #7. 지역코드 */
+		, 	BULD_TP 	/*  #8. 건물형태 */
+		, 	WALL_TP 	/*  #9. 벽형태 */
+		, 	PRD_CD 		/*  #10. 제품코드 */
+		, 	AREA 		/*  #11. 회배수 */
+		, 	LINE_YN 	/*  #12. 매지여부 */
+		, 	INTERIOR 	/*  #13. 내장재 */
+		, 	EXTERIOR 	/*  #14. 외장재 */
+		, 	PSWD 		/*  #15. 비밀번호 */
+		, 	REG_DT 		/*  #16. 등록일 */
+		, 	RMK 		/*  #17. 비고 */
+		, 	REG_ID 		/*  #18. 최초등록자*/
+		, 	REG_DTM 	/*  #19. 최초등록일*/
+		, 	UPD_ID 		/*  #20. 최종수정자*/
+		, 	UPD_DTM 	/*  #21. 최종수정일*/
+		)
+		VALUES
+		(
+			#{ctgrCd}
+		, 	#{reqNo}
+		, 	#{estimateNm}
+		, 	#{estimatePhone}
+		, 	'01'
+		, 	NULL
+		, 	#{areaCd}
+		, 	#{buildingType}
+		, 	#{wallType}
+		, 	#{estimateProduct}
+		, 	#{area}
+		, 	#{tileJoint}
+		, 	#{interior}
+		,	#{exterior}
+		, 	#{estimatePsw}
+		, 	curtime()
+		, 	NULL
+		, 	#{estimateNm}
+		, 	curtime()
+		, 	#{estimateNm}
+		, 	curtime()
+		)
+	</select>
+	
+	<!-- 시공견적문의 전체 조회 -->
+	<select id="getEstimateList" parameterType="hashmap" resultType="hashmap">
+		SELECT 	REQ_NO
+		, 		REQ_NM
+		, 		(
+					SELECT 	MENU_NM 
+					FROM 	ws_code 
+					WHERE 	GRP_CD = '004' 
+					AND 	MENU_TP = a.BULD_TP 
+				) as BULD_TP
+		,		REG_DT
+		,		RES_DT
+		, 		(
+					SELECT 	MENU_NM 
+					FROM 	ws_code 
+					WHERE 	GRP_CD = '010' 
+					AND 	MENU_TP = a.STAT 
+				) as STAT
+		FROM 	ws_estimate a
+		ORDER BY REG_DT DESC
+		limit 	#{startNum}, #{endNum}
+	</select>
+	
+	<!-- 시공견적문의 전체 글 개수 조회 -->
+	<select id="getEstimateTotalCnt" parameterType="hashmap" resultType="int">
+		SELECT 	count(REQ_NO) as total 
+		FROM 	ws_estimate
+	</select>
+	
+	<!-- 비밀번호 조회 -->
+	<select id="getPassword" parameterType="hashmap" resultType="string">
+		SELECT 	PSWD 
+		FROM 	ws_estimate 
+		WHERE  	REQ_NO = #{reqNo} 
+	</select>
+	
+	<!-- 시공견적문의 상세정보 조회 -->
+	<select id="getEstimateDetail" parameterType="hashmap" resultType="hashmap">
+		SELECT 	CTGR_CD
+		, 		REQ_NO
+		,		REQ_NM
+		, 		PHONE_NO
+		, 		RES_TXT
+		, 		AREA_CD
+		, 		BULD_TP
+		, 		WALL_TP
+		, 		PRD_CD
+		, 		AREA
+		, 		LINE_YN
+		, 		INTERIOR
+		, 		EXTERIOR
+		, 		PSWD
+		FROM 	ws_estimate 
+		WHERE  	REQ_NO = #{reqNo}
+	</select>
+	
+	<update id="updateWellEstimate" parameterType="hashmap">
+		UPDATE 	ws_estimate
+		SET 	REQ_NM = #{estimateNm}
+		, 		PHONE_NO = #{estimatePhone}
+		, 		STAT = #{stat}
+		, 		RES_TXT = #{resTxt}
+		, 		AREA_CD = #{areaCd}
+		, 		BULD_TP = #{buildingType}
+		, 		WALL_TP = #{wallType}
+		, 		PRD_CD = #{estimateProduct}
+		, 		AREA = #{area}
+		, 		LINE_YN = #{tileJoint}
+		, 		INTERIOR = #{interior}
+		, 		EXTERIOR = #{exterior}
+		, 		PSWD = #{estimatePsw}
+		, 		UPD_ID = #{estimateNm}
+		, 		UPD_DTM = curtime()
+		<if test="resTxt != null">
+		, 		RES_DT = curtime()
+		</if>
+		WHERE 	CTGR_CD = #{ctgrCd} 
+		AND 	REQ_NO = #{reqNo}
+	</update>
+
+</mapper>

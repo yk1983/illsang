@@ -81,4 +81,14 @@ public class WellMgmtMenuServiceImpl implements WellMgmtMenuService {
 		dao.deleteMenu(map);
 	}
 
+	/**
+	 * @description 공통코드 가져오기
+	 * @return List<Map<String,Object>>
+	 * @throws Exception 
+	 */
+	@Override
+	public List<Map<String, Object>> getCommonList(String param) throws Exception {
+		return dao.getCommonList(param);
+	}
+
 }

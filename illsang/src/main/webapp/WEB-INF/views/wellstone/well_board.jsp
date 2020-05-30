@@ -22,13 +22,21 @@
 <!-- Page Content -->
 <div id="sub_title" class="container">
 	<c:choose>
-		<c:when test="${category eq 'notice'}">
+		<c:when test="${category eq 'notice' || category eq 'notice_detail'}">
 			<h1 class="mt-4 mb-3" id="h1-board-title">공지사항</h1>
 			<input type="hidden" id="ctgrCd" value="${code}">
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item">${menuNm}</li>
 				<li class="breadcrumb-item active">공지사항</li>
 			</ol>	
+		</c:when>
+		<c:when test="${category eq 'estimate' || category eq 'estimate_detail'}">
+			<h1 class="mt-4 mb-3" id="h1-board-title">시공견적 문의</h1>
+			<input type="hidden" id="ctgrCd" value="${code}">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item">${menuNm}</li>
+				<li class="breadcrumb-item active">시공견적 문의</li>
+			</ol>
 		</c:when>
 		<c:otherwise>
 			<h1 class="mt-4 mb-3" id="h1-board-title">자유게시판</h1>
@@ -45,8 +53,6 @@
 	
 </div>
 <!-- /Page Content -->
-
-<c:import url="/WEB-INF/views/wellstone/well_modal.jsp" />
 
 <c:import url="/WEB-INF/views/wellstone/well_footer.jsp">
 	<c:param name="category" value="${category}" />

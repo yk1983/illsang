@@ -137,23 +137,23 @@ function fn_save() {
 //	}
 	
 	// 파일 데이터
-	var params = {};
-	for(var i=0, filesTempArrLen = filesTempArr.length; i<filesTempArrLen; i++) {
-//		formData.append("files", filesTempArr[i]);
-		var key = "file" + i;
-		params[key] = filesTempArr[i];
-	}
+//	var params = {};
+//	for(var i=0, filesTempArrLen = filesTempArr.length; i<filesTempArrLen; i++) {
+////		formData.append("files", filesTempArr[i]);
+//		var key = "file" + i;
+//		params[key] = filesTempArr[i];
+//	}
 	//params.ctgrCd = $('#ctgrCd').val();
 	//params.files = $('#fileupload')[0].files[0];
-	var params = new FormData();
-	params.append('ctgrcd', $('#ctgrCd').val());
-	params.append('uploadfile', $('#fileupload')[0].files[0]);
+//	var params = new FormData();
+//	params.append('ctgrcd', $('#ctgrCd').val());
+//	params.append('uploadfile', $('#fileupload')[0].files[0]);
 	if(chk) {
 		$.ajax({
 			url : '/wellstone/m_notice',
-			//enctype: 'multipart/form-data',
-			dataType : 'json',
-			data : params,
+			enctype: 'multipart/form-data',
+//			dataType : 'json',
+			data : new FormData($('#frm-board')[0]),
 			processData : false,
 			contentType : false,
 			type : 'POST',
@@ -247,29 +247,10 @@ function fn_search() {
 
 function fn_detail(e) {
 	var tar = $(e.currentTarget);
-	var obj = {
-			postCd : tar.data('cd'),
-			ctgrCd : $('#ctgrCd').val()
-	}
-	$.ajax({
-		url : '/wellstone/notice/detail',
-		type : 'POST',
-		data : params,
-		beforeSend : function() {
-			console.log('beforeSend : 공지사항 상세검색');
-		},
-		success : function(data) {
-			console.log(data);
-		},
-		error : function() {
-			$('#modal-fail-text').text('조회실패!');
-			$('#modal-fail').modal();
-		},
-		complete : function() {
-			console.log('complete : 공지사항 상세검색');
-			fn_draw.reset();
-		}
-	});
+	var postCd = tar.data('cd');
+	var ctgrCd = $('#ctgrCd').val();
+	var url = '/wellstone/notice/detail?' + 'postCd=' + postCd + '&ctgrCd=' + ctgrCd;
+	location.href = url;
 }
 
 var fn_draw = {

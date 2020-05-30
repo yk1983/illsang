@@ -47,5 +47,15 @@ public class WellBoardDAO extends AbstractDAO {
 	public int getNoticeTotalCnt(Map<String, Object> map) throws Exception {
 		return (int) selectOne("wellboard.getNoticeTotalCnt", map);
 	}
+
+	/**
+	 * @description 공지사항 상세조회
+	 * @param ParamCollector
+	 * @return Map<String, Object> 
+	 * @throws Exception 
+	 */
+	public Map<String, Object> getNoticeDetail(Map<String, Object> map) throws Exception {
+		return (Map<String, Object>) selectOne("wellboard.getNoticeDetail", map);
+	}
 	
 }

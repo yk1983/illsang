@@ -33,7 +33,7 @@ public class WellBoardServiceImpl implements WellBoardService {
 	
 	/**
 	 * @description 공지사항 전체 글 개수 조회
-	 * @param map : 카테고리 코드
+	 * @param ParamCollector : 카테고리 코드
 	 * @return int
 	 * @throws Exception
 	 */
@@ -54,6 +54,16 @@ public class WellBoardServiceImpl implements WellBoardService {
 		map.put("postsNo", cd);
 		log.debug("cd ::::: " + cd);
 		dao.createNotice(map);
+	}
+
+	/**
+	 * @description 공지사항 상세조회
+	 * @param ParamCollector
+	 * @throws Exception 
+	 */
+	@Override
+	public Map<String, Object> getNoticeDetail(Map<String, Object> map) throws Exception {
+		return dao.getNoticeDetail(map);
 	}
 
 }
