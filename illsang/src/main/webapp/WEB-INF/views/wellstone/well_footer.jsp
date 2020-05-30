@@ -45,6 +45,7 @@
 		<c:when test="${param.category eq 'main'|| param.category eq 'estimate'|| 
 						param.category eq 'm_estimate'}">
 			<script src="/js/w_js/well-estimate.js" type="text/javascript"></script>
+			<script src="/js/w_js/well-catalog.js" type="text/javascript"></script>
 		</c:when>
 		<c:when test="${param.category eq 'notice'|| param.category eq 'm_notice' 
 						|| param.category eq 'notice_detail'}">

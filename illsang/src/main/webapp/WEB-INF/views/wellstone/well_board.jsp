@@ -38,6 +38,14 @@
 				<li class="breadcrumb-item active">시공견적 문의</li>
 			</ol>
 		</c:when>
+		<c:when test="${category eq 'catalog' || category eq 'catalog_detail'}">
+			<h1 class="mt-4 mb-3" id="h1-board-title">카달로그 신청</h1>
+			<input type="hidden" id="ctgrCd" value="${code}">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item">${menuNm}</li>
+				<li class="breadcrumb-item active">카달로그 신청</li>
+			</ol>
+		</c:when>
 		<c:otherwise>
 			<h1 class="mt-4 mb-3" id="h1-board-title">자유게시판</h1>
 			<ol class="breadcrumb">

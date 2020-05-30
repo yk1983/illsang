@@ -34,6 +34,12 @@ public class WellMainController {
 		return mav;
 	}
 	
+	@RequestMapping(value = "/juso", method = RequestMethod.POST)
+	public ModelAndView getWellJusoInfo() {
+		ModelAndView mav = new ModelAndView("wellstone/jusoPopup");
+		return mav;
+	}
+	
 	/**
 	 * 웰스톤 메인페이지 호출
 	 * @param 

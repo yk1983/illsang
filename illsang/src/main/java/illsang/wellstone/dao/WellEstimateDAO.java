@@ -30,7 +30,7 @@ public class WellEstimateDAO extends AbstractDAO {
 	}
 
 	/**
-	 * @description 시공견적문의 등록
+	 * @description 시공견적문의 목록 조회
 	 * @param Map<String, Object> map
 	 * @throws Exception
 	 */

@@ -41,7 +41,7 @@ public class WellEstimateService implements illsang.wellstone.service.WellEstima
 	}
 
 	/**
-	 * @description 문의번호 조회
+	 * @description 게시글번호 조회
 	 * @param ParamCollector
 	 * @return int
 	 * @throws Exception
@@ -80,7 +80,6 @@ public class WellEstimateService implements illsang.wellstone.service.WellEstima
 	public Map<String, Object> getEstimateDetail(Map<String, Object> map) throws Exception {
 		return dao.getEstimateDetail(map);
 	}
-
 	
 	/**
 	 * @description 시공견적문의 수정

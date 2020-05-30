@@ -14,31 +14,31 @@
         <div class="col-sm-8">
             <div class="input-group">
                 <div class="input-group-prepend">
-                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">선택</button>
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="catalogPrevNum">선택</button>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">010</a>
-                        <a class="dropdown-item" href="#">011</a>
-                        <a class="dropdown-item" href="#">016</a>
-                        <a class="dropdown-item" href="#">017</a>
-                        <a class="dropdown-item" href="#">019</a>
+                        <a class="dropdown-item" onclick="catalog_prev_num(this);" href="javascript:void(0);">010</a>
+                        <a class="dropdown-item" onclick="catalog_prev_num(this);" href="javascript:void(0);">011</a>
+                        <a class="dropdown-item" onclick="catalog_prev_num(this);" href="javascript:void(0);">016</a>
+                        <a class="dropdown-item" onclick="catalog_prev_num(this);" href="javascript:void(0);">017</a>
+                        <a class="dropdown-item" onclick="catalog_prev_num(this);" href="javascript:void(0);">019</a>
                         <div role="separator" class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">02</a>
-                        <a class="dropdown-item" href="#">031</a>
-                        <a class="dropdown-item" href="#">053</a>
+                        <a class="dropdown-item" onclick="catalog_prev_num(this);" href="javascript:void(0);">02</a>
+                        <a class="dropdown-item" onclick="catalog_prev_num(this);" href="javascript:void(0);">031</a>
+                        <a class="dropdown-item" onclick="catalog_prev_num(this);" href="javascript:void(0);">053</a>
                     </div>
                 </div>
-                <input type="text" class="form-control" aria-label="Text input with dropdown button">
+                <input type="text" class="form-control" aria-label="Text input with dropdown button" name="catalogPhone">
             </div>
         </div>
     </div>
 
     <div class="form-group row">
-        <label for="staticEmail" class="col-sm-4 col-form-label">배송방법</label>
+        <label for="" class="col-sm-4 col-form-label">배송방법</label>
         <div class="col-sm-8">
-            <select class="form-control">
-                <option>선택해주세요</option>
-                <option>택배 1~2일소요 / 제주도(착불)</option>
-                <option>일반 3~4일소요(무료)</option>
+            <select class="form-control" name="catalogDelivery">
+                <option value="">선택해주세요</option>
+                <option value="01">택배 1~2일소요 / 제주도(착불)</option>
+                <option value="02">일반 3~4일소요(무료)</option>
             </select>
         </div>
     </div>
@@ -47,9 +47,9 @@
         <label for="catalogAddress" class="col-sm-4 col-form-label">주소</label>
         <div class="col-sm-8">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="우편번호" aria-label="Recipient's username" aria-describedby="catalogAddress" readonly>
+                <input type="text" class="form-control" name="catalogZipNo" placeholder="우편번호" aria-label="Recipient's username" aria-describedby="catalogAddress" readonly>
                 <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="button">검색</button>
+                    <button class="btn btn-outline-secondary" type="button" id="btn-catalog-address">검색</button>
                 </div>
             </div>
         </div>
@@ -58,14 +58,14 @@
     <div class="form-group row">
         <div class="col-sm-4"></div>
         <div class="col-sm-8">
-            <input type="text" class="form-control" name="catalogAddress1" placeholder="주소를 검색하세요." readonly>
+            <input type="text" class="form-control" name="cataloRoadFullAddr" placeholder="주소를 검색하세요." readonly>
         </div>
     </div>
 
     <div class="form-group row">
         <div class="col-sm-4"></div>
         <div class="col-sm-8">
-            <input type="text" class="form-control" name="catalogAddress2" placeholder="상세주소를 입력하세요.">
+            <input type="text" class="form-control" name="catalogAddrDetail" placeholder="상세주소를 입력하세요.">
         </div>
     </div>
 

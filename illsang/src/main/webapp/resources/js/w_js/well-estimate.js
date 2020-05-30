@@ -25,13 +25,13 @@ $(document).ready(function() {
     });
 	
 	//개인정보 취급방침 동의
-	$('button[name="btn-privacy-estimate"]').on('click', function() {
-		$('#modal-privacy-estimate').modal();
+	$('#btn-privacy-estimate').on('click', function() {
+		$('#modal-privacy').modal();
 	});
 	
 	//시공견적문의 등록
-	$('button[name="btn-agree-estimate"]').on('click', function() {
-		var chk = $('#chk-agree-estimate').is(':checked');
+	$('button[name="btn-agree"]').on('click', function() {
+		var chk = $('#chk-agree').is(':checked');
 		if(chk) {
 			fn_estimate_save();
 		} else {
@@ -54,12 +54,12 @@ $(document).ready(function() {
  * Local function event
  * @returns
  **************************************************************************/
-//시공견적문의 전화번호 선택
+//시공견적문의 전화번호(앞자리) 선택
 function estimate_prev_num(e) {
 	var value = e.text;
 	$('button[name="esimatePrevNum"]').text('');
 	$('button[name="esimatePrevNum"]').text(value);
-	console.log(value);
+//	console.log(value);
 }
 
 //화면전환(관리자페이지)

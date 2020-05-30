@@ -33,7 +33,7 @@
 									<option value="prdCd">제품번호</option>
 									<option value="ctgrCd">제품카테고리</option>
 								</c:when>
-								<c:when test="${category eq 'estimate'}">
+								<c:when test="${category eq 'estimate' || category eq 'catalog'}">
 									<option value="">접수상태</option>
 									<option value="01">등록</option>
 									<option value="04">답변완료</option>
@@ -115,6 +115,32 @@
 									<td>${item.BULD_TP}</td>
 									<td>${item.REG_DT}</td>
 									<td>${item.RES_DT}</td>
+									<td>${item.STAT}</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</c:when>
+					<c:when test="${category eq 'catalog'}">
+						<colgroup>
+							<col width="20%">
+							<col width="40%">
+							<col width="20%">
+							<col width="20%">
+						</colgroup>
+						<thead>
+							<tr>
+								<th>번호</th>
+								<th>제목</th>
+								<th>등록일자</th>
+								<th>접수상태</th>
+							</tr>
+						</thead>
+						<tbody id="tbl-catalog">
+							<c:forEach var="item" items="${list}" begin="0" step="1">
+								<tr>
+									<td>${item.REQ_NO}</td>
+									<td>${item.REQ_NM}님이 신청하셨습니다.</td>
+									<td>${item.REG_DT}</td>
 									<td>${item.STAT}</td>
 								</tr>
 							</c:forEach>

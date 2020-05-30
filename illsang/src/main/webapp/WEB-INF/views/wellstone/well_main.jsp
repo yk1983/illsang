@@ -364,7 +364,7 @@
 					<div class="card-body req-h-618 d-flex flex-column">
 						<c:import url="/WEB-INF/views/wellstone/well_frm_estimate.jsp" />
 						<div class="text-right mt-auto">
-							<button type="button" class="btn btn-success" name="btn-privacy-estimate">확인</button>
+							<button type="button" class="btn btn-success" id="btn-privacy-estimate">확인</button>
 						</div>
 					</div>
 				</div>
@@ -377,8 +377,7 @@
 					<div class="card-body req-h-618 d-flex flex-column">
 						<c:import url="/WEB-INF/views/wellstone/well_frm_catalog.jsp" />
 						<div class="text-right mt-auto">
-							<button type="button" class="align-self-end btn btn-success"
-								name="btn-privacy">확인</button>
+							<button type="button" class="align-self-end btn btn-success" id="btn-privacy-catalog">확인</button>
 						</div>
 					</div>
 				</div>
@@ -391,7 +390,7 @@
 					<div class="card-body req-h-618 d-flex flex-column">
 						<c:import url="/WEB-INF/views/wellstone/well_frm_sample.jsp" />
 						<div class="text-right mt-auto">
-							<button type="button" class="btn btn-success" name="btn-privacy">확인</button>
+							<button type="button" class="btn btn-success" id="btn-privacy-sample">확인</button>
 						</div>
 					</div>
 				</div>
